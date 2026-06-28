@@ -42,8 +42,10 @@ impl Application {
         self.database.query(query).await
     }
 
-    pub async fn random(&self, query: LibraryQuery) -> Result<Option<LibraryEntry>> {
-        todo!()
+    pub async fn random(&self, query: LibraryQuery) -> Result<LibraryEntry> {
+        let mut results = self.database.query(query).await?;
+        let random_index = fastrand::usize(..results.len());
+        Ok(results.swap_remove(random_index))
     }
 
     pub async fn refresh(&self, id: i64) -> Result<LibraryEntry> {

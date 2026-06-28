@@ -15,6 +15,8 @@ pub use query::UpdateEntry;
 pub enum Error {
     #[error("SQLite error: {0:?}")]
     DatabaseError(#[from] sqlx::Error),
+    #[error("No entry with matching query was found")]
+    NotFound,
 }
 
 pub type Result<T> = std::result::Result<T, Error>;

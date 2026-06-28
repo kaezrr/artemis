@@ -43,7 +43,7 @@ pub enum Status {
 }
 
 pub struct Collection {
-    // Every collection has a unique title
+    pub id: i64,
     pub title: String,
     pub entries: Vec<i64>,
 }

@@ -5,6 +5,7 @@ use sqlx::sqlite::SqliteConnectOptions;
 use sqlx::sqlite::SqlitePoolOptions;
 
 use crate::Result;
+use crate::media::Collection;
 use crate::media::LibraryEntry;
 use crate::media::SearchResult;
 use crate::query::LibraryQuery;

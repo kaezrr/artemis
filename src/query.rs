@@ -1,5 +1,8 @@
+use std::collections::HashMap;
+
 use time::Duration;
 
+use crate::media::LibraryEntry;
 use crate::media::MediaKind;
 use crate::media::Status;
 use crate::media::Tag;
@@ -17,6 +20,17 @@ pub struct LibraryQuery {
 
     pub limit: Option<u32>,
     pub offset: Option<u32>,
+}
+
+#[derive(Default)]
+pub struct SearchQuery {
+    pub query: String,
+    pub kind: Option<MediaKind>,
+}
+
+pub struct Dashboard {
+    pub recent: Vec<LibraryEntry>,
+    pub media_counts: HashMap<MediaKind, u32>,
 }
 
 #[derive(Default)]

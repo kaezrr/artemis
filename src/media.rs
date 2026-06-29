@@ -34,6 +34,7 @@ pub struct SearchResult {
     pub metadata: ProviderMetadata,
 }
 
+#[derive(sqlx::Type)]
 #[derive(Default)]
 pub enum Status {
     #[default]
@@ -52,6 +53,7 @@ pub struct Collection {
 
 #[derive(strum::EnumDiscriminants)]
 #[strum_discriminants(name(MediaKind))]
+#[strum_discriminants(derive(sqlx::Type))]
 #[strum_discriminants(doc = "This is a discriminant type without the associated data")]
 pub enum Media {
     Anime {
@@ -75,5 +77,6 @@ pub enum Media {
     },
 }
 
-#[repr(transparent)]
-pub struct Tag(String);
+#[derive(sqlx::Type)]
+#[sqlx(transparent)]
+pub struct Tag(pub String);

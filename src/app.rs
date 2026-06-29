@@ -1,5 +1,3 @@
-use std::path::Path;
-
 use crate::Result;
 use crate::database::Database;
 use crate::media::LibraryEntry;
@@ -16,7 +14,7 @@ pub struct Application {
 
 #[expect(unused)]
 impl Application {
-    pub async fn open(path: impl AsRef<Path>) -> Result<Self> {
+    pub async fn open(path: &str) -> Result<Self> {
         Ok(Self {
             database: Database::open(path).await?,
         })

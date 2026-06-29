@@ -4,23 +4,25 @@ use time::UtcDateTime;
 pub struct LibraryEntry {
     pub id: i64,
 
-    pub metadata: ProviderMetadata,
     pub media: Media,
+    pub metadata: ProviderMetadata,
 
-    pub status: Status,
-    pub notes: Option<String>,
     pub rating: Option<u8>,
+    pub notes: Option<String>,
+    pub status: Status,
 
     pub created_at: UtcDateTime,
     pub updated_at: UtcDateTime,
 }
 
 pub struct ProviderMetadata {
-    pub provider: Provider,
+    pub provider: String,
     pub provider_id: i64,
 
     pub title: String,
     pub cover_url: String,
+    pub wide_url: Option<String>,
+    pub logo_url: Option<String>,
 
     pub description: String,
     pub tags: Vec<Tag>,
@@ -57,14 +59,14 @@ pub enum Media {
         studio: String,
     },
 
-    Game {
-        playtime: Option<Duration>,
-        studio: String,
-    },
-
     Movie {
         director: String,
         duration: Duration,
+    },
+
+    Game {
+        developer: String,
+        playtime: Option<Duration>,
     },
 
     TVShow {
@@ -73,21 +75,5 @@ pub enum Media {
     },
 }
 
-#[derive(Clone, Copy)]
-pub enum Provider {
-    Anilist,
-    Igdb,
-    Tmdb,
-}
-
 #[repr(transparent)]
 pub struct Tag(String);
-
-impl Tag {
-    #[expect(clippy::match_single_binding)]
-    pub fn from(provider: Provider, tag: &str) -> Self {
-        match tag.trim() {
-            other => Self(other.into()),
-        }
-    }
-}

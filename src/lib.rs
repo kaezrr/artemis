@@ -15,6 +15,8 @@ pub use query::UpdateEntry;
 pub enum Error {
     #[error("SQLite error: {0:?}")]
     DatabaseError(#[from] sqlx::Error),
+    #[error("Error while migrating database: {0:?}")]
+    MigrationError(#[from] sqlx::migrate::MigrateError),
     #[error("No entry with matching query was found")]
     NotFound,
 }

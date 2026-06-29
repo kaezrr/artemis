@@ -16,9 +16,9 @@ pub struct Database {
 }
 
 impl Database {
-    pub async fn open(_: impl AsRef<Path>) -> Result<Self> {
-        // TODO: in memory for testing purposes right now
-        let opts = SqliteConnectOptions::from_str("sqlite::memory:")?
+    pub async fn open(path: &str) -> Result<Self> {
+        let opts = SqliteConnectOptions::from_str(path)?
+            .create_if_missing(true)
             .journal_mode(sqlx::sqlite::SqliteJournalMode::Wal)
             .pragma("foreign_keys", "ON");
 
@@ -26,6 +26,8 @@ impl Database {
             .max_connections(1)
             .connect_with(opts)
             .await?;
+
+        sqlx::migrate!("data/migrations").run(&pool).await?;
 
         Ok(Self { pool })
     }

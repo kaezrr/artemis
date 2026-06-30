@@ -1,6 +1,6 @@
 CREATE TABLE media (
   id INTEGER PRIMARY KEY,
-  kind TEXT NOT NULL CHECK (kind IN ('anime', 'movie', 'game', 'tvshow')),
+  kind TEXT NOT NULL CHECK (kind IN ('anime', 'movie', 'game', 'tv_show')),
   provider TEXT NOT NULL,
   provider_id INTEGER NOT NULL,
   title TEXT NOT NULL,

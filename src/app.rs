@@ -1,6 +1,7 @@
 use crate::Result;
 use crate::database::Database;
 use crate::media::LibraryEntry;
+use crate::media::LibraryItem;
 use crate::media::SearchResult;
 use crate::query::Dashboard;
 use crate::query::LibraryQuery;
@@ -36,11 +37,11 @@ impl Application {
         self.database.delete(id).await
     }
 
-    pub async fn query(&self, query: LibraryQuery) -> Result<Vec<LibraryEntry>> {
+    pub async fn query(&self, query: LibraryQuery) -> Result<Vec<LibraryItem>> {
         self.database.query(query).await
     }
 
-    pub async fn random(&self, query: LibraryQuery) -> Result<LibraryEntry> {
+    pub async fn random(&self, query: LibraryQuery) -> Result<LibraryItem> {
         let mut results = self.database.query(query).await?;
         let random_index = fastrand::usize(..results.len());
         Ok(results.swap_remove(random_index))

@@ -9,7 +9,7 @@ use crate::media::Tag;
 #[derive(Default)]
 pub struct LibraryQuery {
     pub search: Option<String>,
-    pub kind: Option<Vec<MediaKind>>,
+    pub kind: Option<MediaKind>,
 
     pub sort_by: SortBy,
     pub order: SortOrder,

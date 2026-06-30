@@ -19,6 +19,20 @@ pub struct LibraryEntry {
     pub updated_at: UtcDateTime,
 }
 
+/// A light-weight representation of an library entry,
+/// contains everything needed to display it in a grid
+#[derive(Debug, sqlx::FromRow)]
+pub struct LibraryItem {
+    pub id: i64,
+
+    pub kind: MediaKind,
+    pub title: String,
+    pub cover_url: String,
+
+    pub status: Status,
+    pub rating: Option<u8>,
+}
+
 #[derive(Debug)]
 pub struct ProviderMetadata {
     pub provider: String,

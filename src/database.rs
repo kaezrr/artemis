@@ -1,6 +1,5 @@
 use std::str::FromStr;
 
-use sqlx::QueryBuilder;
 use sqlx::Sqlite;
 use sqlx::sqlite::SqliteConnectOptions;
 use sqlx::sqlite::SqlitePoolOptions;
@@ -10,6 +9,7 @@ use crate::Error;
 use crate::Result;
 use crate::media::Duration;
 use crate::media::LibraryEntry;
+use crate::media::LibraryItem;
 use crate::media::Media;
 use crate::media::MediaKind;
 use crate::media::ProviderMetadata;
@@ -18,6 +18,7 @@ use crate::media::Status;
 use crate::media::Tag;
 use crate::media::UtcDateTime;
 use crate::query::LibraryQuery;
+use crate::query::TagFilter;
 use crate::query::UpdateEntry;
 
 pub struct Database {
@@ -123,19 +124,7 @@ impl Database {
 
         tx.commit().await?;
 
-        Ok(LibraryEntry {
-            id: media_id,
-
-            media: search_result.media,
-            metadata: search_result.metadata,
-
-            rating: None,
-            notes: None,
-            status: Status::default(),
-
-            created_at: now,
-            updated_at: now,
-        })
+        self.get(media_id).await
     }
 
     pub async fn get(&self, id: i64) -> Result<LibraryEntry> {
@@ -239,8 +228,7 @@ impl Database {
             SET status = COALESCE(?2, status),
                 notes  = CASE WHEN ?3 THEN ?4 ELSE notes END,
                 rating = CASE WHEN ?5 THEN ?6 ELSE rating END
-            WHERE id = ?1
-            "#,
+            WHERE id = ?1"#,
             id,
             update.status,
             update.notes.is_some(),
@@ -275,16 +263,95 @@ impl Database {
     }
 
     pub async fn delete(&self, id: i64) -> Result<()> {
-        sqlx::query!("DELETE FROM media WHERE id = ?", &id)
+        let result = sqlx::query!("DELETE FROM media WHERE id = ?", &id)
             .execute(&self.pool)
             .await?;
 
-        Ok(())
+        (result.rows_affected() == 0)
+            .then_some(())
+            .ok_or(Error::NotFound(id))
     }
 
-    pub async fn query(&self, query: LibraryQuery) -> Result<Vec<LibraryEntry>> {
-        let mut query = QueryBuilder::<Sqlite>::new("SELECT * FROM media");
+    pub async fn query(&self, query: LibraryQuery) -> Result<Vec<LibraryItem>> {
+        let mut qb = sqlx::QueryBuilder::<Sqlite>::new(
+            r#"
+        SELECT 
+            id,
+            kind, title, cover_url,
+            status, rating
+        FROM media
+        WHERE 1 = 1"#,
+        );
 
-        todo!()
+        if let Some(search) = &query.search {
+            qb.push(" AND title LIKE ").push_bind(format!("{search}%"));
+        }
+
+        if let Some(status) = &query.status {
+            qb.push(" AND status = ").push_bind(status);
+        }
+
+        if let Some(kind) = &query.kind {
+            qb.push(" AND kind = ").push_bind(kind);
+        }
+
+        if let Some(tag_filter) = &query.tag_filter {
+            match tag_filter {
+                TagFilter::Or(tags) if !tags.is_empty() => {
+                    qb.push(" AND id IN (SELECT media_id FROM media_tag WHERE tag IN (");
+
+                    let mut separated = qb.separated(", ");
+                    for tag in tags.iter() {
+                        separated.push_bind(tag);
+                    }
+                    separated.push_unseparated(") ");
+
+                    qb.push(") ");
+                }
+
+                TagFilter::And(tags) if !tags.is_empty() => {
+                    qb.push(" AND id IN (SELECT media_id FROM media_tag WHERE tag IN (");
+
+                    let mut separated = qb.separated(", ");
+                    for tag in tags.iter() {
+                        separated.push_bind(tag);
+                    }
+                    separated.push_unseparated(") ");
+
+                    qb.push(" GROUP BY media_id");
+                    qb.push(" HAVING COUNT(DISTINCT tag) = ")
+                        .push_bind(tags.len() as i64);
+
+                    qb.push(") ");
+                }
+
+                _ => {}
+            }
+        }
+
+        qb.push(" ORDER BY ")
+            .push(match query.sort_by {
+                crate::query::SortBy::Title => "title",
+                crate::query::SortBy::Rating => "rating",
+                crate::query::SortBy::ReleaseYear => "release_year",
+                crate::query::SortBy::LastModified => "updated_at",
+            })
+            .push(match query.order {
+                crate::query::SortOrder::Ascending => " ASC",
+                crate::query::SortOrder::Descending => " DESC",
+            });
+
+        if let Some(limit) = query.limit {
+            qb.push(" LIMIT ").push_bind(limit);
+        }
+
+        if let Some(offset) = query.offset {
+            if query.limit.is_none() {
+                qb.push(" LIMIT -1 ");
+            }
+            qb.push(" OFFSET ").push_bind(offset);
+        }
+
+        Ok(qb.build_query_as().fetch_all(&self.pool).await?)
     }
 }

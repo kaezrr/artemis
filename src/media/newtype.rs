@@ -23,6 +23,12 @@ impl UtcDateTime {
     }
 }
 
+impl Duration {
+    pub fn seconds(s: i64) -> Self {
+        Self(time::Duration::seconds(s))
+    }
+}
+
 impl Deref for Duration {
     type Target = time::Duration;
 

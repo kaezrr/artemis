@@ -1,15 +1,10 @@
 mod app;
 mod database;
-mod media;
-mod query;
+pub mod media;
+pub mod query;
 
 pub use app::Application;
-pub use media::LibraryEntry;
-pub use media::SearchResult;
-pub use query::Dashboard;
-pub use query::LibraryQuery;
-pub use query::SearchQuery;
-pub use query::UpdateEntry;
+pub use database::Database;
 
 #[derive(thiserror::Error, Debug)]
 pub enum Error {

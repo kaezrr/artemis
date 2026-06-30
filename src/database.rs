@@ -148,7 +148,11 @@ impl Database {
             &id
         )
         .fetch_one(&self.pool)
-        .await?;
+        .await
+        .map_err(|e| match e {
+            sqlx::Error::RowNotFound => Error::NotFound(id),
+            other => Error::DatabaseError(other),
+        })?;
 
         let tags: Vec<Tag> = sqlx::query_scalar("SELECT tag FROM media_tag WHERE media_id = $1")
             .bind(id)
@@ -267,7 +271,7 @@ impl Database {
             .execute(&self.pool)
             .await?;
 
-        (result.rows_affected() == 0)
+        (result.rows_affected() == 1)
             .then_some(())
             .ok_or(Error::NotFound(id))
     }

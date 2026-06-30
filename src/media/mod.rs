@@ -1,6 +1,10 @@
-use time::Duration;
-use time::UtcDateTime;
+mod newtype;
 
+pub use newtype::Duration;
+pub use newtype::Tag;
+pub use newtype::UtcDateTime;
+
+#[derive(Debug)]
 pub struct LibraryEntry {
     pub id: i64,
 
@@ -15,6 +19,7 @@ pub struct LibraryEntry {
     pub updated_at: UtcDateTime,
 }
 
+#[derive(Debug)]
 pub struct ProviderMetadata {
     pub provider: String,
     pub provider_id: i64,
@@ -29,13 +34,14 @@ pub struct ProviderMetadata {
     pub release_year: Option<u32>,
 }
 
+#[derive(Debug)]
 pub struct SearchResult {
     pub media: Media,
     pub metadata: ProviderMetadata,
 }
 
 #[derive(sqlx::Type)]
-#[derive(Default)]
+#[derive(Default, Debug)]
 pub enum Status {
     #[default]
     Planned,
@@ -45,20 +51,21 @@ pub enum Status {
     Dropped,
 }
 
+#[derive(Debug)]
 pub struct Collection {
     pub id: i64,
     pub title: String,
     pub entries: Vec<i64>,
 }
 
-#[derive(strum::EnumDiscriminants)]
+#[derive(strum::EnumDiscriminants, Debug)]
 #[strum_discriminants(name(MediaKind))]
-#[strum_discriminants(derive(sqlx::Type))]
+#[strum_discriminants(derive(sqlx::Type, strum::EnumString))]
 #[strum_discriminants(doc = "This is a discriminant type without the associated data")]
 pub enum Media {
     Anime {
-        episodes: u32,
         studio: String,
+        episodes: u32,
     },
 
     Movie {
@@ -76,7 +83,3 @@ pub enum Media {
         episodes: u32,
     },
 }
-
-#[derive(sqlx::Type)]
-#[sqlx(transparent)]
-pub struct Tag(pub String);

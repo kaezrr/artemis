@@ -1,6 +1,6 @@
 CREATE TABLE media (
   id INTEGER PRIMARY KEY,
-  kind TEXT NOT NULL CHECK (kind IN ('anime', 'movie', 'game', 'tvshow')),
+  kind TEXT NOT NULL CHECK (kind IN ('Anime', 'Movie', 'Game', 'TVShow')),
   provider TEXT NOT NULL,
   provider_id INTEGER NOT NULL,
   title TEXT NOT NULL,
@@ -13,11 +13,11 @@ CREATE TABLE media (
   notes TEXT,
   status TEXT NOT NULL CHECK (
     status IN (
-      'planned',
-      'inprogress',
-      'finished',
-      'onhold',
-      'dropped'
+      'Planned',
+      'InProgress',
+      'Finished',
+      'OnHold',
+      'Dropped'
     )
   ) DEFAULT 'planned',
   created_at INTEGER NOT NULL,

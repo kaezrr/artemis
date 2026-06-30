@@ -1,17 +1,19 @@
-use std::path::Path;
 use std::str::FromStr;
 
 use sqlx::sqlite::SqliteConnectOptions;
 use sqlx::sqlite::SqlitePoolOptions;
 use strum::IntoDiscriminant;
-use time::UtcDateTime;
 
 use crate::Result;
-use crate::media::Collection;
+use crate::media::Duration;
 use crate::media::LibraryEntry;
 use crate::media::Media;
+use crate::media::MediaKind;
+use crate::media::ProviderMetadata;
 use crate::media::SearchResult;
 use crate::media::Status;
+use crate::media::Tag;
+use crate::media::UtcDateTime;
 use crate::query::LibraryQuery;
 use crate::query::UpdateEntry;
 
@@ -63,8 +65,8 @@ impl Database {
             &search_result.metadata.logo_url,
             &search_result.metadata.description,
             &search_result.metadata.release_year,
-            &now.unix_timestamp(),
-            &now.unix_timestamp(),
+            &now,
+            &now,
         )
         .execute(&mut *tx)
         .await?;
@@ -83,7 +85,7 @@ impl Database {
                 "INSERT INTO movie_meta (media_id, director, duration) VALUES (?, ?, ?)",
                 media_id,
                 director,
-                duration.whole_seconds()
+                duration,
             ),
 
             Media::Game {
@@ -93,7 +95,7 @@ impl Database {
                 "INSERT INTO game_meta (media_id, developer, playtime) VALUES (?, ?, ?)",
                 media_id,
                 developer,
-                playtime.map(|p| p.whole_seconds())
+                playtime,
             ),
 
             Media::TVShow { director, episodes } => sqlx::query!(
@@ -134,7 +136,95 @@ impl Database {
     }
 
     pub async fn get(&self, id: i64) -> Result<LibraryEntry> {
-        todo!()
+        let entry = sqlx::query!(
+            r#"SELECT
+            kind as "kind: MediaKind",
+            provider,
+            provider_id,
+            title,
+            cover_url,
+            wide_url,
+            logo_url,
+            description,
+            release_year as "release_year: u32",
+            rating as "rating: u8", 
+            notes,
+            status as "status: Status",
+            created_at as "created_at: UtcDateTime",
+            updated_at as "updated_at: UtcDateTime"
+            FROM media WHERE id = ?"#,
+            &id
+        )
+        .fetch_one(&self.pool)
+        .await?;
+
+        let tags: Vec<Tag> = sqlx::query_scalar("SELECT tag FROM media_tag WHERE media_id = $1")
+            .bind(id)
+            .fetch_all(&self.pool)
+            .await?;
+
+        let media = match entry.kind {
+            MediaKind::Anime => {
+                sqlx::query_as!(
+                    Media::Anime,
+                    r#"SELECT studio, episodes as "episodes: u32" FROM anime_meta WHERE media_id = ?"#,
+                    id
+                )
+                .fetch_one(&self.pool)
+                .await?
+            }
+            MediaKind::Movie => {
+                sqlx::query_as!(
+                    Media::Movie,
+                    r#"SELECT director, duration as "duration: Duration" FROM movie_meta WHERE media_id = ?"#,
+                    id
+                )
+                .fetch_one(&self.pool)
+                .await?
+            }
+            MediaKind::Game => {
+                sqlx::query_as!(
+                    Media::Game,
+                    r#"SELECT developer, playtime as "playtime: Duration" FROM game_meta WHERE media_id = ?"#,
+                    id
+                )
+                .fetch_one(&self.pool)
+                .await?
+            }
+            MediaKind::TVShow => {
+                sqlx::query_as!(
+                    Media::TVShow,
+                    r#"SELECT director, episodes as "episodes: u32" FROM tvshow_meta WHERE media_id = ?"#,
+                    id
+                )
+                .fetch_one(&self.pool)
+                .await?
+            }
+        };
+
+        Ok(LibraryEntry {
+            id,
+            media,
+
+            metadata: ProviderMetadata {
+                provider: entry.provider,
+                provider_id: entry.provider_id,
+                title: entry.title,
+                cover_url: entry.cover_url,
+                wide_url: entry.wide_url,
+                logo_url: entry.logo_url,
+                description: entry.description,
+                tags,
+                release_year: entry.release_year,
+            },
+
+            rating: entry.rating,
+            notes: entry.notes,
+            status: entry.status,
+
+            created_at: entry.created_at,
+            updated_at: entry.updated_at,
+        })
     }
 
     pub async fn update(&self, id: i64, update: UpdateEntry) -> Result<LibraryEntry> {

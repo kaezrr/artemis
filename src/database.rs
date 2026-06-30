@@ -1,9 +1,12 @@
 use std::str::FromStr;
 
+use sqlx::QueryBuilder;
+use sqlx::Sqlite;
 use sqlx::sqlite::SqliteConnectOptions;
 use sqlx::sqlite::SqlitePoolOptions;
 use strum::IntoDiscriminant;
 
+use crate::Error;
 use crate::Result;
 use crate::media::Duration;
 use crate::media::LibraryEntry;
@@ -228,14 +231,60 @@ impl Database {
     }
 
     pub async fn update(&self, id: i64, update: UpdateEntry) -> Result<LibraryEntry> {
-        todo!()
+        let mut tx = self.pool.begin().await?;
+
+        let result = sqlx::query!(
+            r#"
+            UPDATE media
+            SET status = COALESCE(?2, status),
+                notes  = CASE WHEN ?3 THEN ?4 ELSE notes END,
+                rating = CASE WHEN ?5 THEN ?6 ELSE rating END
+            WHERE id = ?1
+            "#,
+            id,
+            update.status,
+            update.notes.is_some(),
+            update.notes.flatten(),
+            update.rating.is_some(),
+            update.rating.flatten(),
+        )
+        .execute(&mut *tx)
+        .await?;
+
+        if result.rows_affected() == 0 {
+            return Err(Error::NotFound(id));
+        }
+
+        if let Some(x) = &update.playtime {
+            let result = sqlx::query!(
+                "UPDATE game_meta SET playtime = ? WHERE media_id = ?",
+                &x,
+                &id
+            )
+            .execute(&mut *tx)
+            .await?;
+
+            if result.rows_affected() == 0 {
+                return Err(Error::NotFound(id));
+            }
+        }
+
+        tx.commit().await?;
+
+        self.get(id).await
     }
 
     pub async fn delete(&self, id: i64) -> Result<()> {
-        todo!()
+        sqlx::query!("DELETE FROM media WHERE id = ?", &id)
+            .execute(&self.pool)
+            .await?;
+
+        Ok(())
     }
 
     pub async fn query(&self, query: LibraryQuery) -> Result<Vec<LibraryEntry>> {
+        let mut query = QueryBuilder::<Sqlite>::new("SELECT * FROM media");
+
         todo!()
     }
 }

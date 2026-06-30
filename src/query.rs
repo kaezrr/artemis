@@ -1,7 +1,6 @@
 use std::collections::HashMap;
 
-use time::Duration;
-
+use crate::media::Duration;
 use crate::media::LibraryEntry;
 use crate::media::MediaKind;
 use crate::media::Status;
@@ -29,11 +28,6 @@ pub struct SearchQuery {
     pub in_library: bool,
 }
 
-pub struct Dashboard {
-    pub recent: Vec<LibraryEntry>,
-    pub media_counts: HashMap<MediaKind, u32>,
-}
-
 #[derive(Default)]
 pub enum SortOrder {
     #[default]
@@ -53,6 +47,11 @@ pub enum SortBy {
 pub enum TagFilter {
     Or(Vec<Tag>),
     And(Vec<Tag>),
+}
+
+pub struct Dashboard {
+    pub recent: Vec<LibraryEntry>,
+    pub media_counts: HashMap<MediaKind, u32>,
 }
 
 /// Used to update a library entry

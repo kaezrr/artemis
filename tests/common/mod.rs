@@ -80,6 +80,7 @@ pub fn anime(provider_id: i64, title: &str, studio: &str, episodes: u32) -> Sear
             episodes,
         },
         metadata: metadata(provider_id, title),
+        in_library: false,
     }
 }
 
@@ -90,6 +91,7 @@ pub fn movie(provider_id: i64, title: &str, director: &str, duration: Duration) 
             duration,
         },
         metadata: metadata(provider_id, title),
+        in_library: false,
     }
 }
 
@@ -105,6 +107,7 @@ pub fn game(
             playtime,
         },
         metadata: metadata(provider_id, title),
+        in_library: false,
     }
 }
 
@@ -115,6 +118,7 @@ pub fn tv_show(provider_id: i64, title: &str, director: &str, episodes: u32) -> 
             episodes,
         },
         metadata: metadata(provider_id, title),
+        in_library: false,
     }
 }
 

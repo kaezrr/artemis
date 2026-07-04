@@ -41,6 +41,7 @@ pub struct ProviderMetadata {
     pub title: String,
     pub cover_url: String,
     pub wide_url: Option<String>,
+    pub logo_url: Option<String>,
 
     pub description: String,
     pub tags: Vec<Tag>,
@@ -51,9 +52,10 @@ pub struct ProviderMetadata {
 pub struct SearchResult {
     pub media: Media,
     pub metadata: ProviderMetadata,
+    pub in_library: bool,
 }
 
-#[derive(sqlx::Type)]
+#[derive(sqlx::Type, Clone, Copy)]
 #[derive(Default, Debug)]
 #[sqlx(rename_all = "snake_case")]
 pub enum Status {

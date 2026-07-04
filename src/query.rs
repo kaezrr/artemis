@@ -27,7 +27,6 @@ pub struct LibraryQuery {
 pub struct SearchQuery {
     pub query: String,
     pub kind: Option<MediaKind>,
-    pub in_library: bool,
 }
 
 #[derive(Default)]

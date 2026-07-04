@@ -1,9 +1,13 @@
+use std::collections::HashMap;
+use std::collections::HashSet;
+
 use crate::Result;
 use crate::database::Database;
 use crate::media::Collection;
 use crate::media::LibraryEntry;
 use crate::media::LibraryItem;
 use crate::media::SearchResult;
+use crate::provider::CombinedSearchProvider;
 use crate::query::Dashboard;
 use crate::query::LibraryQuery;
 use crate::query::SearchQuery;
@@ -12,13 +16,14 @@ use crate::query::UpdateEntry;
 
 pub struct Application {
     database: Database,
-    // providers: Vec<dyn MediaProviders>
+    provider: CombinedSearchProvider,
 }
 
 impl Application {
     pub async fn open(path: &str) -> Result<Self> {
         Ok(Self {
             database: Database::open(path).await?,
+            provider: CombinedSearchProvider::default(),
         })
     }
 
@@ -66,15 +71,31 @@ impl Application {
         self.database.delete_collection(id).await
     }
 
-    pub async fn refresh(&self, id: i64) -> Result<LibraryEntry> {
-        todo!()
-    }
-
     pub async fn dashboard(&self) -> Result<Dashboard> {
         todo!()
     }
 
-    pub async fn search(&self, query: SearchQuery) -> Result<Vec<SearchResult>> {
-        todo!()
+    pub async fn search(&self, query: &SearchQuery) -> Result<Vec<SearchResult>> {
+        let mut results = self.provider.search(query).await?;
+
+        let mut provider_to_ids = HashMap::<&str, Vec<i64>>::new();
+        for r in &results {
+            provider_to_ids
+                .entry(&r.metadata.provider)
+                .or_default()
+                .push(r.metadata.provider_id);
+        }
+
+        let mut set = HashSet::<(String, i64)>::new();
+        for (provider, ids) in provider_to_ids.into_iter() {
+            let existing_ids = self.database.existing_ids(provider, &ids).await?;
+            set.extend(existing_ids.into_iter().map(|id| (provider.to_owned(), id)));
+        }
+
+        for r in &mut results {
+            r.in_library = set.contains(&(r.metadata.provider.clone(), r.metadata.provider_id));
+        }
+
+        Ok(results)
     }
 }

@@ -1,3 +1,4 @@
+use std::collections::HashSet;
 use std::str::FromStr;
 
 use sqlx::Sqlite;
@@ -492,5 +493,22 @@ impl Database {
         (result.rows_affected() == 1)
             .then_some(())
             .ok_or(Error::NotFound(id))
+    }
+
+    pub async fn existing_ids(&self, provider: &str, external_ids: &[i64]) -> Result<Vec<i64>> {
+        let mut builder =
+            sqlx::QueryBuilder::<Sqlite>::new("SELECT provider_id FROM media WHERE provider = ");
+
+        builder.push_bind(provider);
+        builder.push(" AND provider_id IN (");
+
+        let mut separated = builder.separated(", ");
+        for id in external_ids {
+            separated.push_bind(id);
+        }
+
+        builder.push(")");
+
+        Ok(builder.build_query_scalar().fetch_all(&self.pool).await?)
     }
 }

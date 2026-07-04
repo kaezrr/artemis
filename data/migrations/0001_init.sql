@@ -6,6 +6,7 @@ CREATE TABLE media (
   title TEXT NOT NULL,
   cover_url TEXT NOT NULL,
   wide_url TEXT,
+  logo_url TEXT,
   description TEXT NOT NULL,
   release_year INTEGER CHECK (release_year >= 0),
   rating INTEGER CHECK (rating BETWEEN 1 AND 7),

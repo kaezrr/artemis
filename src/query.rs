@@ -19,6 +19,8 @@ pub struct LibraryQuery {
 
     pub limit: Option<u32>,
     pub offset: Option<u32>,
+
+    pub collection_id: Option<i64>,
 }
 
 #[derive(Default)]
@@ -61,4 +63,15 @@ pub struct UpdateEntry {
     pub notes: Option<Option<String>>,
     pub rating: Option<Option<u8>>,
     pub playtime: Option<Option<Duration>>,
+}
+
+#[derive(Default)]
+pub struct UpdateCollection {
+    pub title: Option<String>,
+    pub update_entries: Vec<CollectionAction>,
+}
+
+pub enum CollectionAction {
+    Add(i64),
+    Remove(i64),
 }

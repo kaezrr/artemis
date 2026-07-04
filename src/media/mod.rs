@@ -66,11 +66,11 @@ pub enum Status {
     Dropped,
 }
 
-#[derive(Debug)]
+#[derive(Debug, sqlx::FromRow)]
 pub struct Collection {
     pub id: i64,
     pub title: String,
-    pub entries: Vec<i64>,
+    pub count: i64,
 }
 
 #[derive(strum::EnumDiscriminants, Debug)]

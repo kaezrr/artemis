@@ -41,7 +41,6 @@ pub struct ProviderMetadata {
     pub title: String,
     pub cover_url: String,
     pub wide_url: Option<String>,
-    pub logo_url: Option<String>,
 
     pub description: String,
     pub tags: Vec<Tag>,

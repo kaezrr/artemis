@@ -1,11 +1,13 @@
 use crate::Result;
 use crate::database::Database;
+use crate::media::Collection;
 use crate::media::LibraryEntry;
 use crate::media::LibraryItem;
 use crate::media::SearchResult;
 use crate::query::Dashboard;
 use crate::query::LibraryQuery;
 use crate::query::SearchQuery;
+use crate::query::UpdateCollection;
 use crate::query::UpdateEntry;
 
 pub struct Application {
@@ -13,7 +15,6 @@ pub struct Application {
     // providers: Vec<dyn MediaProviders>
 }
 
-#[expect(unused)]
 impl Application {
     pub async fn open(path: &str) -> Result<Self> {
         Ok(Self {
@@ -45,6 +46,24 @@ impl Application {
         let mut results = self.database.query(query).await?;
         let random_index = fastrand::usize(..results.len());
         Ok(results.swap_remove(random_index))
+    }
+
+    pub async fn add_collection(&self, title: &str, media_ids: &[i64]) -> Result<Collection> {
+        self.database.add_collection(title, media_ids).await
+    }
+    pub async fn get_collection(&self, id: i64) -> Result<Collection> {
+        self.database.get_collection(id).await
+    }
+
+    pub async fn get_collections(&self) -> Result<Vec<Collection>> {
+        self.database.get_collections().await
+    }
+    pub async fn update_collection(&self, id: i64, update: UpdateCollection) -> Result<Collection> {
+        self.database.update_collection(id, update).await
+    }
+
+    pub async fn delete_collection(&self, id: i64) -> Result<()> {
+        self.database.delete_collection(id).await
     }
 
     pub async fn refresh(&self, id: i64) -> Result<LibraryEntry> {

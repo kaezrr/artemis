@@ -234,7 +234,8 @@ impl Database {
             UPDATE media
             SET status = COALESCE(?2, status),
                 notes  = CASE WHEN ?3 THEN ?4 ELSE notes END,
-                rating = CASE WHEN ?5 THEN ?6 ELSE rating END
+                rating = CASE WHEN ?5 THEN ?6 ELSE rating END,
+                updated_at = ?7
             WHERE id = ?1",
         )
         .bind(id)
@@ -243,6 +244,7 @@ impl Database {
         .bind(update.notes.flatten())
         .bind(update.rating.is_some())
         .bind(update.rating.flatten())
+        .bind(UtcDateTime::now())
         .execute(&mut *tx)
         .await?;
 
@@ -291,7 +293,7 @@ impl Database {
 
         if let Some(search) = &query.search {
             qb.push(" AND m.title LIKE ")
-                .push_bind(format!("{search}%"));
+                .push_bind(format!("%{search}%"));
         }
 
         if let Some(status) = &query.status {

@@ -1,5 +1,4 @@
 use std::collections::HashMap;
-use std::str::FromStr;
 
 use artemis::media::Duration;
 use futures::StreamExt;
@@ -19,7 +18,7 @@ impl TMDBMovieProvider {
         Self {
             client: Client::new(),
             api_key,
-            base_url: Url::from_str("https://api.themoviedb.org/3").unwrap(),
+            base_url: Url::parse("https://api.themoviedb.org/3/").unwrap(),
         }
     }
 }
@@ -54,12 +53,12 @@ impl ApiProvider for TMDBMovieProvider {
             .json::<Response>()
             .await?;
 
-        let mut details = self.fetch_movie_details(&response.results[..5]).await?;
+        let results: Vec<_> = response.results.into_iter().take(5).collect();
 
-        Ok(response
-            .results
+        let mut details = self.fetch_movie_details(&results).await?;
+
+        Ok(results
             .into_iter()
-            .take(5)
             .map(|movie| {
                 let details = details.remove(&movie.id).unwrap();
 

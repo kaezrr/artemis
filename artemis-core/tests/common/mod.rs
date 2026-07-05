@@ -20,7 +20,6 @@ use artemis::media::Media;
 use artemis::media::ProviderMetadata;
 use artemis::media::SearchResult;
 use artemis::media::Status;
-use artemis::media::Tag;
 use artemis::query::UpdateEntry;
 
 /// Opens a fresh, isolated in-memory database. Each test gets its own instance,
@@ -31,11 +30,11 @@ pub async fn test_db() -> Database {
         .expect("failed to open in-memory test database")
 }
 
-pub fn tag(s: &str) -> Tag {
-    Tag(s.to_string())
+pub fn tag(s: &str) -> String {
+    s.to_string()
 }
 
-pub fn tags(items: &[&str]) -> Vec<Tag> {
+pub fn tags(items: &[&str]) -> Vec<String> {
     items.iter().map(|s| tag(s)).collect()
 }
 
@@ -66,7 +65,6 @@ pub fn metadata(provider_id: i64, title: &str) -> ProviderMetadata {
         title: title.to_string(),
         cover_url: format!("https://example.test/cover/{provider_id}.jpg"),
         wide_url: None,
-        logo_url: None,
         description: format!("Description for {title}"),
         tags: Vec::new(),
         release_year: Some(2020),

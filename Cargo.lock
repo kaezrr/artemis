@@ -26,6 +26,13 @@ dependencies = [
 [[package]]
 name = "artemis-providers"
 version = "0.1.0"
+dependencies = [
+ "artemis",
+ "async-trait",
+ "reqwest",
+ "serde",
+ "serde_json",
+]
 
 [[package]]
 name = "async-trait"
@@ -1328,6 +1335,8 @@ dependencies = [
  "rustls",
  "rustls-pki-types",
  "rustls-platform-verifier",
+ "serde",
+ "serde_json",
  "sync_wrapper",
  "tokio",
  "tokio-rustls",

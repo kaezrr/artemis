@@ -15,11 +15,8 @@ pub enum Error {
     MigrationError(#[from] sqlx::migrate::MigrateError),
     #[error("No entry with matching id {0} was found")]
     NotFound(i64),
-    #[error("Api provider {name} failed: {source:?}")]
-    ProviderError {
-        name: String,
-        source: reqwest::Error,
-    },
+    #[error("Api provider failed: {0:?}")]
+    ProviderError(#[from] reqwest::Error),
 }
 
 pub type Result<T> = std::result::Result<T, Error>;

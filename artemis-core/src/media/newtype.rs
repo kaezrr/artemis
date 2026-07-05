@@ -5,10 +5,6 @@ use sqlx::Encode;
 use sqlx::Sqlite;
 use sqlx::Type;
 
-#[derive(sqlx::Type, Debug, PartialEq)]
-#[sqlx(transparent)]
-pub struct Tag(pub String);
-
 #[derive(Clone, Copy, Debug, PartialEq)]
 #[repr(transparent)]
 pub struct Duration(pub time::Duration);

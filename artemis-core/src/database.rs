@@ -1,4 +1,3 @@
-use std::collections::HashSet;
 use std::str::FromStr;
 
 use sqlx::Sqlite;
@@ -17,7 +16,6 @@ use crate::media::MediaKind;
 use crate::media::ProviderMetadata;
 use crate::media::SearchResult;
 use crate::media::Status;
-use crate::media::Tag;
 use crate::media::UtcDateTime;
 use crate::query::CollectionAction;
 use crate::query::LibraryQuery;
@@ -60,12 +58,11 @@ impl Database {
                 title,
                 cover_url,
                 wide_url,
-                logo_url,
                 description,
                 release_year,
                 created_at,
                 updated_at
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         )
         .bind(search_result.media.discriminant())
         .bind(search_result.metadata.provider)
@@ -73,7 +70,6 @@ impl Database {
         .bind(search_result.metadata.title)
         .bind(search_result.metadata.cover_url)
         .bind(search_result.metadata.wide_url)
-        .bind(search_result.metadata.logo_url)
         .bind(search_result.metadata.description)
         .bind(search_result.metadata.release_year)
         .bind(now)
@@ -140,7 +136,6 @@ impl Database {
             title,
             cover_url,
             wide_url,
-            logo_url,
             description,
             release_year as "release_year: u32",
             rating as "rating: u8", 
@@ -158,7 +153,7 @@ impl Database {
             other => Error::DatabaseError(other),
         })?;
 
-        let tags: Vec<Tag> = sqlx::query_scalar("SELECT tag FROM media_tag WHERE media_id = $1")
+        let tags: Vec<String> = sqlx::query_scalar("SELECT tag FROM media_tag WHERE media_id = $1")
             .bind(id)
             .fetch_all(&self.pool)
             .await?;
@@ -212,7 +207,6 @@ impl Database {
                 title: entry.title,
                 cover_url: entry.cover_url,
                 wide_url: entry.wide_url,
-                logo_url: entry.logo_url,
                 description: entry.description,
                 tags,
                 release_year: entry.release_year,

@@ -4,14 +4,12 @@ use futures::stream::FuturesUnordered;
 use crate::Result;
 use crate::media::MediaKind;
 use crate::media::SearchResult;
-use crate::media::Tag;
 use crate::query::SearchQuery;
 
 #[async_trait::async_trait]
 pub trait ApiProvider: Send + Sync {
     fn name(&self) -> &'static str;
     fn kind(&self) -> MediaKind;
-    fn normalize_tag(&self, tag: &str) -> Tag;
     async fn search(&self, query: &SearchQuery) -> Result<Vec<SearchResult>>;
 }
 

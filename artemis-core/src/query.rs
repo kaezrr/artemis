@@ -4,7 +4,6 @@ use crate::media::Duration;
 use crate::media::LibraryEntry;
 use crate::media::MediaKind;
 use crate::media::Status;
-use crate::media::Tag;
 
 #[derive(Default)]
 pub struct LibraryQuery {
@@ -46,8 +45,8 @@ pub enum SortBy {
 }
 
 pub enum TagFilter {
-    Or(Vec<Tag>),
-    And(Vec<Tag>),
+    Or(Vec<String>),
+    And(Vec<String>),
 }
 
 pub struct Dashboard {

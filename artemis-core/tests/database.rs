@@ -127,7 +127,6 @@ async fn add_round_trips_metadata_and_tags() {
     sr.metadata.tags = tags(&["action", "space-western"]);
     sr.metadata.description = "A ragtag crew of bounty hunters.".to_string();
     sr.metadata.wide_url = Some("https://example.test/wide.jpg".to_string());
-    sr.metadata.logo_url = Some("https://example.test/logo.png".to_string());
     sr.metadata.release_year = Some(1998);
 
     let entry = db.add(sr).await.unwrap();
@@ -139,10 +138,6 @@ async fn add_round_trips_metadata_and_tags() {
     assert_eq!(
         entry.metadata.wide_url.as_deref(),
         Some("https://example.test/wide.jpg")
-    );
-    assert_eq!(
-        entry.metadata.logo_url.as_deref(),
-        Some("https://example.test/logo.png")
     );
     assert_eq!(entry.metadata.release_year, Some(1998));
     assert_eq!(entry.metadata.tags.len(), 2);

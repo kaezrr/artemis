@@ -1,6 +1,17 @@
-use artemis::provider::ApiProvider;
-use reqwest::Client;
+mod anilist;
+mod tmdb;
 
-struct AnilistProvider {
-    client: Client,
-}
+use artemis::Result;
+use artemis::media::Media as ArtremisMedia;
+use artemis::media::MediaKind;
+use artemis::media::ProviderMetadata;
+use artemis::media::SearchResult;
+use artemis::provider::ApiProvider;
+use artemis::query::SearchQuery;
+use reqwest::Client;
+use serde::Deserialize;
+use serde_json::json;
+
+pub use crate::anilist::AnilistProvider;
+pub use crate::tmdb::TMDBMovieProvider;
+pub use crate::tmdb::TMDBShowProvider;

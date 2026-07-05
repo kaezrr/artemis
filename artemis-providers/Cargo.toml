@@ -4,6 +4,8 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-artemis = { path = "../artemis-core" }
+artemis = { path = "../artemis-core", default-features = false }
 async-trait = "0.1.89"
-reqwest = "0.13.4"
+reqwest = { version = "0.13.4", features = ["json"] }
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.150"

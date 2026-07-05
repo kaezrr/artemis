@@ -40,6 +40,6 @@ pub struct GameRow {
 
 #[derive(sqlx::FromRow)]
 pub struct TVShowRow {
-    pub director: Option<String>,
+    pub creator: Option<String>,
     pub episodes: Option<u32>,
 }

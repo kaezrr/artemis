@@ -50,7 +50,7 @@ impl ApiProvider for TMDBMovieProvider {
             .header("accept", "application/json")
             .send()
             .await?
-            .json::<Response>()
+            .json::<Response<Movie>>()
             .await?;
 
         let results: Vec<_> = response.results.into_iter().take(5).collect();
@@ -145,9 +145,11 @@ struct MovieDetails {
     tags: Vec<String>,
 }
 
-#[derive(Debug, Deserialize)]
-pub struct Response {
-    pub results: Vec<Movie>,
+#[derive(Deserialize)]
+struct MovieDetailsResponse {
+    runtime: Option<u32>,
+    genres: Vec<Genre>,
+    credits: Credits,
 }
 
 #[derive(Debug, Deserialize)]
@@ -158,18 +160,6 @@ pub struct Movie {
     pub poster_path: Option<String>,
     pub release_date: String,
     pub title: String,
-}
-
-#[derive(Deserialize)]
-struct MovieDetailsResponse {
-    runtime: Option<u32>,
-    genres: Vec<Genre>,
-    credits: Credits,
-}
-
-#[derive(Deserialize)]
-struct Genre {
-    name: String,
 }
 
 #[derive(Deserialize)]

@@ -104,11 +104,11 @@ impl Database {
             .bind(developer)
             .bind(playtime),
 
-            Media::TVShow { director, episodes } => sqlx::query(
-                "INSERT INTO tvshow_meta (media_id, director, episodes) VALUES (?, ?, ?)",
+            Media::TVShow { creator, episodes } => sqlx::query(
+                "INSERT INTO tvshow_meta (media_id, creator, episodes) VALUES (?, ?, ?)",
             )
             .bind(media_id)
-            .bind(director)
+            .bind(creator)
             .bind(episodes),
         }
         .execute(&mut *tx)
@@ -200,13 +200,13 @@ impl Database {
 
             MediaKind::TVShow => {
                 let row: row::TVShowRow =
-                    sqlx::query_as("SELECT director, episodes FROM tvshow_meta WHERE media_id = ?")
+                    sqlx::query_as("SELECT creator, episodes FROM tvshow_meta WHERE media_id = ?")
                         .bind(id)
                         .fetch_one(&self.pool)
                         .await?;
 
                 Media::TVShow {
-                    director: row.director,
+                    creator: row.creator,
                     episodes: row.episodes,
                 }
             }

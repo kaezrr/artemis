@@ -112,7 +112,7 @@ pub fn game(
 pub fn tv_show(provider_id: i64, title: &str, director: &str, episodes: u32) -> SearchResult {
     SearchResult {
         media: Media::TVShow {
-            director: Some(director.to_string()),
+            creator: Some(director.to_string()),
             episodes: Some(episodes),
         },
         metadata: metadata(provider_id, title),

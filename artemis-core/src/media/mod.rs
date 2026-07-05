@@ -94,7 +94,7 @@ pub enum Media {
     },
 
     TVShow {
-        director: Option<String>,
+        creator: Option<String>,
         episodes: Option<u32>,
     },
 }

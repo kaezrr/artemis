@@ -54,7 +54,7 @@ CREATE TABLE game_meta (
 
 CREATE TABLE tvshow_meta (
   media_id INTEGER PRIMARY KEY,
-  director TEXT,
+  creator TEXT,
   episodes INTEGER CHECK (episodes >= 0),
   FOREIGN KEY (media_id) REFERENCES media (id) ON DELETE CASCADE
 );

@@ -112,8 +112,8 @@ async fn add_round_trips_every_media_kind() {
         .await
         .unwrap();
     match t.media {
-        Media::TVShow { director, episodes } => {
-            assert_eq!(director, Some("Director B".to_string()));
+        Media::TVShow { creator, episodes } => {
+            assert_eq!(creator, Some("Director B".to_string()));
             assert_eq!(episodes, Some(24));
         }
         other => panic!("expected Media::TVShow, got {other:?}"),

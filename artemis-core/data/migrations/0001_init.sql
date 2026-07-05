@@ -4,7 +4,7 @@ CREATE TABLE media (
   provider TEXT NOT NULL,
   provider_id INTEGER NOT NULL,
   title TEXT NOT NULL,
-  cover_url TEXT NOT NULL,
+  cover_url TEXT,
   wide_url TEXT,
   description TEXT,
   release_year INTEGER CHECK (release_year >= 0),

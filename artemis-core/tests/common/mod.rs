@@ -63,7 +63,7 @@ pub fn metadata(provider_id: i64, title: &str) -> ProviderMetadata {
         provider: "test-provider".to_string(),
         provider_id,
         title: title.to_string(),
-        cover_url: format!("https://example.test/cover/{provider_id}.jpg"),
+        cover_url: Some(format!("https://example.test/cover/{provider_id}.jpg")),
         wide_url: None,
         description: Some(format!("Description for {title}")),
         tags: Vec::new(),

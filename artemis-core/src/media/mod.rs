@@ -38,7 +38,7 @@ pub struct ProviderMetadata {
     pub provider_id: i64,
 
     pub title: String,
-    pub cover_url: String,
+    pub cover_url: Option<String>,
     pub wide_url: Option<String>,
 
     pub description: Option<String>,

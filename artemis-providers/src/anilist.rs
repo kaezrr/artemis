@@ -57,11 +57,7 @@ impl ApiProvider for AnilistProvider {
                     provider: self.name().to_string(),
                     provider_id: anime.id,
                     title: anime.title.english.unwrap_or(anime.title.romaji),
-                    cover_url: anime
-                        .cover_image
-                        .extra_large
-                        .unwrap_or(anime.cover_image.large),
-
+                    cover_url: anime.cover_image.extra_large,
                     wide_url: anime.banner_image,
                     description: anime.description,
                     tags: anime.genres,
@@ -140,7 +136,6 @@ pub struct Media {
 
 #[derive(Debug, Deserialize)]
 pub struct CoverImage {
-    pub large: String,
     #[serde(rename = "extraLarge")]
     pub extra_large: Option<String>,
 }

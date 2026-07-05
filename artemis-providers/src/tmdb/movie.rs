@@ -54,7 +54,6 @@ impl ApiProvider for TMDBMovieProvider {
             .await?;
 
         let results: Vec<_> = response.results.into_iter().take(5).collect();
-
         let mut details = self.fetch_movie_details(&results).await?;
 
         Ok(results
@@ -71,7 +70,7 @@ impl ApiProvider for TMDBMovieProvider {
                     provider: self.name().to_string(),
                     provider_id: movie.id,
                     title: movie.title,
-                    cover_url: tmdb_image_url(&movie.poster_path, "w500"),
+                    cover_url: movie.poster_path.map(|x| tmdb_image_url(&x, "w500")),
                     wide_url: movie.backdrop_path.map(|x| tmdb_image_url(&x, "w1280")),
                     description: movie.overview,
                     tags: details.tags,
@@ -156,7 +155,7 @@ pub struct Movie {
     pub backdrop_path: Option<String>,
     pub id: i64,
     pub overview: Option<String>,
-    pub poster_path: String,
+    pub poster_path: Option<String>,
     pub release_date: String,
     pub title: String,
 }

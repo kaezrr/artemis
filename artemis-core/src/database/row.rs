@@ -9,7 +9,7 @@ pub struct MediaRow {
     pub provider: String,
     pub provider_id: i64,
     pub title: String,
-    pub cover_url: String,
+    pub cover_url: Option<String>,
     pub wide_url: Option<String>,
     pub description: String,
     pub release_year: Option<u32>,

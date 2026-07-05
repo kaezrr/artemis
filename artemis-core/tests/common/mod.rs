@@ -65,7 +65,7 @@ pub fn metadata(provider_id: i64, title: &str) -> ProviderMetadata {
         title: title.to_string(),
         cover_url: format!("https://example.test/cover/{provider_id}.jpg"),
         wide_url: None,
-        description: format!("Description for {title}"),
+        description: Some(format!("Description for {title}")),
         tags: Vec::new(),
         release_year: Some(2020),
     }
@@ -74,8 +74,8 @@ pub fn metadata(provider_id: i64, title: &str) -> ProviderMetadata {
 pub fn anime(provider_id: i64, title: &str, studio: &str, episodes: u32) -> SearchResult {
     SearchResult {
         media: Media::Anime {
-            studio: studio.to_string(),
-            episodes,
+            studio: Some(studio.to_string()),
+            episodes: Some(episodes),
         },
         metadata: metadata(provider_id, title),
         in_library: false,
@@ -85,8 +85,8 @@ pub fn anime(provider_id: i64, title: &str, studio: &str, episodes: u32) -> Sear
 pub fn movie(provider_id: i64, title: &str, director: &str, duration: Duration) -> SearchResult {
     SearchResult {
         media: Media::Movie {
-            director: director.to_string(),
-            duration,
+            director: Some(director.to_string()),
+            duration: Some(duration),
         },
         metadata: metadata(provider_id, title),
         in_library: false,
@@ -101,7 +101,7 @@ pub fn game(
 ) -> SearchResult {
     SearchResult {
         media: Media::Game {
-            developer: developer.to_string(),
+            developer: Some(developer.to_string()),
             playtime,
         },
         metadata: metadata(provider_id, title),
@@ -112,8 +112,8 @@ pub fn game(
 pub fn tv_show(provider_id: i64, title: &str, director: &str, episodes: u32) -> SearchResult {
     SearchResult {
         media: Media::TVShow {
-            director: director.to_string(),
-            episodes,
+            director: Some(director.to_string()),
+            episodes: Some(episodes),
         },
         metadata: metadata(provider_id, title),
         in_library: false,

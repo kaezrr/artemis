@@ -6,7 +6,7 @@ CREATE TABLE media (
   title TEXT NOT NULL,
   cover_url TEXT NOT NULL,
   wide_url TEXT,
-  description TEXT NOT NULL,
+  description TEXT,
   release_year INTEGER CHECK (release_year >= 0),
   rating INTEGER CHECK (rating BETWEEN 1 AND 7),
   notes TEXT,
@@ -33,28 +33,28 @@ CREATE TABLE media_tag (
 
 CREATE TABLE anime_meta (
   media_id INTEGER PRIMARY KEY,
-  studio TEXT NOT NULL,
-  episodes INTEGER NOT NULL CHECK (episodes >= 0),
+  studio TEXT,
+  episodes INTEGER CHECK (episodes >= 0),
   FOREIGN KEY (media_id) REFERENCES media (id) ON DELETE CASCADE
 );
 
 CREATE TABLE movie_meta (
   media_id INTEGER PRIMARY KEY,
-  director TEXT NOT NULL,
-  duration INTEGER NOT NULL CHECK (duration >= 0),
+  director TEXT,
+  duration INTEGER CHECK (duration >= 0),
   FOREIGN KEY (media_id) REFERENCES media (id) ON DELETE CASCADE
 );
 
 CREATE TABLE game_meta (
   media_id INTEGER PRIMARY KEY,
-  developer TEXT NOT NULL,
+  developer TEXT,
   playtime INTEGER CHECK (playtime >= 0),
   FOREIGN KEY (media_id) REFERENCES media (id) ON DELETE CASCADE
 );
 
 CREATE TABLE tvshow_meta (
   media_id INTEGER PRIMARY KEY,
-  director TEXT NOT NULL,
-  episodes INTEGER NOT NULL CHECK (episodes >= 0),
+  director TEXT,
+  episodes INTEGER CHECK (episodes >= 0),
   FOREIGN KEY (media_id) REFERENCES media (id) ON DELETE CASCADE
 );

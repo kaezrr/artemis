@@ -1,3 +1,5 @@
+mod row;
+
 use std::str::FromStr;
 
 use sqlx::Sqlite;
@@ -8,14 +10,12 @@ use strum::IntoDiscriminant;
 use crate::Error;
 use crate::Result;
 use crate::media::Collection;
-use crate::media::Duration;
 use crate::media::LibraryEntry;
 use crate::media::LibraryItem;
 use crate::media::Media;
 use crate::media::MediaKind;
 use crate::media::ProviderMetadata;
 use crate::media::SearchResult;
-use crate::media::Status;
 use crate::media::UtcDateTime;
 use crate::query::CollectionAction;
 use crate::query::LibraryQuery;
@@ -128,24 +128,24 @@ impl Database {
     }
 
     pub async fn get(&self, id: i64) -> Result<LibraryEntry> {
-        let entry = sqlx::query!(
-            r#"SELECT
-            kind as "kind: MediaKind",
-            provider,
-            provider_id,
-            title,
-            cover_url,
-            wide_url,
-            description,
-            release_year as "release_year: u32",
-            rating as "rating: u8", 
-            notes,
-            status as "status: Status",
-            created_at as "created_at: UtcDateTime",
-            updated_at as "updated_at: UtcDateTime"
-            FROM media WHERE id = ?"#,
-            &id
+        let entry: row::MediaRow = sqlx::query_as(
+            "SELECT
+                kind,
+                provider,
+                provider_id,
+                title,
+                cover_url,
+                wide_url,
+                description,
+                release_year,
+                rating,
+                notes,
+                status,
+                created_at,
+                updated_at
+            FROM media WHERE id = ?",
         )
+        .bind(id)
         .fetch_one(&self.pool)
         .await
         .map_err(|e| match e {
@@ -160,40 +160,55 @@ impl Database {
 
         let media = match entry.kind {
             MediaKind::Anime => {
-                sqlx::query_as!(
-                    Media::Anime,
-                    r#"SELECT studio, episodes as "episodes: u32" FROM anime_meta WHERE media_id = ?"#,
-                    id
-                )
-                .fetch_one(&self.pool)
-                .await?
+                let row: row::AnimeRow =
+                    sqlx::query_as("SELECT studio, episodes FROM anime_meta WHERE media_id = ?")
+                        .bind(id)
+                        .fetch_one(&self.pool)
+                        .await?;
+
+                Media::Anime {
+                    studio: row.studio,
+                    episodes: row.episodes,
+                }
             }
+
             MediaKind::Movie => {
-                sqlx::query_as!(
-                    Media::Movie,
-                    r#"SELECT director, duration as "duration: Duration" FROM movie_meta WHERE media_id = ?"#,
-                    id
-                )
-                .fetch_one(&self.pool)
-                .await?
+                let row: row::MovieRow =
+                    sqlx::query_as("SELECT director, duration FROM movie_meta WHERE media_id = ?")
+                        .bind(id)
+                        .fetch_one(&self.pool)
+                        .await?;
+
+                Media::Movie {
+                    director: row.director,
+                    duration: row.duration,
+                }
             }
+
             MediaKind::Game => {
-                sqlx::query_as!(
-                    Media::Game,
-                    r#"SELECT developer, playtime as "playtime: Duration" FROM game_meta WHERE media_id = ?"#,
-                    id
-                )
-                .fetch_one(&self.pool)
-                .await?
+                let row: row::GameRow =
+                    sqlx::query_as("SELECT developer, playtime FROM game_meta WHERE media_id = ?")
+                        .bind(id)
+                        .fetch_one(&self.pool)
+                        .await?;
+
+                Media::Game {
+                    developer: row.developer,
+                    playtime: row.playtime,
+                }
             }
+
             MediaKind::TVShow => {
-                sqlx::query_as!(
-                    Media::TVShow,
-                    r#"SELECT director, episodes as "episodes: u32" FROM tvshow_meta WHERE media_id = ?"#,
-                    id
-                )
-                .fetch_one(&self.pool)
-                .await?
+                let row: row::TVShowRow =
+                    sqlx::query_as("SELECT director, episodes FROM tvshow_meta WHERE media_id = ?")
+                        .bind(id)
+                        .fetch_one(&self.pool)
+                        .await?;
+
+                Media::TVShow {
+                    director: row.director,
+                    episodes: row.episodes,
+                }
             }
         };
 
@@ -207,7 +222,7 @@ impl Database {
                 title: entry.title,
                 cover_url: entry.cover_url,
                 wide_url: entry.wide_url,
-                description: entry.description,
+                description: Some(entry.description),
                 tags,
                 release_year: entry.release_year,
             },

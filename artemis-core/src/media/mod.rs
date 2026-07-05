@@ -41,7 +41,7 @@ pub struct ProviderMetadata {
     pub cover_url: String,
     pub wide_url: Option<String>,
 
-    pub description: String,
+    pub description: Option<String>,
     pub tags: Vec<String>,
     pub release_year: Option<u32>,
 }
@@ -79,22 +79,22 @@ pub struct Collection {
 #[strum_discriminants(doc = "This is a discriminant type without the associated data")]
 pub enum Media {
     Anime {
-        studio: String,
-        episodes: u32,
+        studio: Option<String>,
+        episodes: Option<u32>,
     },
 
     Movie {
-        director: String,
-        duration: Duration,
+        director: Option<String>,
+        duration: Option<Duration>,
     },
 
     Game {
-        developer: String,
+        developer: Option<String>,
         playtime: Option<Duration>,
     },
 
     TVShow {
-        director: String,
-        episodes: u32,
+        director: Option<String>,
+        episodes: Option<u32>,
     },
 }

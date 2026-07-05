@@ -54,8 +54,8 @@ async fn add_returns_entry_with_expected_defaults() {
 
     match entry.media {
         Media::Anime { studio, episodes } => {
-            assert_eq!(studio, "Bones");
-            assert_eq!(episodes, 64);
+            assert_eq!(studio, Some("Bones".to_string()));
+            assert_eq!(episodes, Some(64));
         }
         other => panic!("expected Media::Anime, got {other:?}"),
     }
@@ -68,8 +68,8 @@ async fn add_round_trips_every_media_kind() {
     let a = db.add(anime(1, "Anime A", "Studio A", 12)).await.unwrap();
     match a.media {
         Media::Anime { studio, episodes } => {
-            assert_eq!(studio, "Studio A");
-            assert_eq!(episodes, 12);
+            assert_eq!(studio, Some("Studio A".to_string()));
+            assert_eq!(episodes, Some(12));
         }
         other => panic!("expected Media::Anime, got {other:?}"),
     }
@@ -80,8 +80,8 @@ async fn add_round_trips_every_media_kind() {
         .unwrap();
     match m.media {
         Media::Movie { director, duration } => {
-            assert_eq!(director, "Director A");
-            assert_eq!(duration, mins(120));
+            assert_eq!(director, Some("Director A".to_string()));
+            assert_eq!(duration, Some(mins(120)));
         }
         other => panic!("expected Media::Movie, got {other:?}"),
     }
@@ -95,7 +95,7 @@ async fn add_round_trips_every_media_kind() {
             developer,
             playtime,
         } => {
-            assert_eq!(developer, "Dev A");
+            assert_eq!(developer, Some("Dev A".to_string()));
             assert_eq!(playtime, Some(mins(600)));
         }
         other => panic!("expected Media::Game, got {other:?}"),
@@ -113,8 +113,8 @@ async fn add_round_trips_every_media_kind() {
         .unwrap();
     match t.media {
         Media::TVShow { director, episodes } => {
-            assert_eq!(director, "Director B");
-            assert_eq!(episodes, 24);
+            assert_eq!(director, Some("Director B".to_string()));
+            assert_eq!(episodes, Some(24));
         }
         other => panic!("expected Media::TVShow, got {other:?}"),
     }
@@ -125,7 +125,7 @@ async fn add_round_trips_metadata_and_tags() {
     let db = test_db().await;
     let mut sr = anime(1, "Cowboy Bebop", "Sunrise", 26);
     sr.metadata.tags = tags(&["action", "space-western"]);
-    sr.metadata.description = "A ragtag crew of bounty hunters.".to_string();
+    sr.metadata.description = Some("A ragtag crew of bounty hunters.".to_string());
     sr.metadata.wide_url = Some("https://example.test/wide.jpg".to_string());
     sr.metadata.release_year = Some(1998);
 
@@ -133,7 +133,7 @@ async fn add_round_trips_metadata_and_tags() {
 
     assert_eq!(
         entry.metadata.description,
-        "A ragtag crew of bounty hunters."
+        Some("A ragtag crew of bounty hunters.".to_string())
     );
     assert_eq!(
         entry.metadata.wide_url.as_deref(),

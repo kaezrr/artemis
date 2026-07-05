@@ -15,7 +15,7 @@ impl Default for AnilistProvider {
 #[async_trait::async_trait]
 impl ApiProvider for AnilistProvider {
     fn name(&self) -> &'static str {
-        "Anilist"
+        "AniList"
     }
 
     fn kind(&self) -> MediaKind {
@@ -26,7 +26,7 @@ impl ApiProvider for AnilistProvider {
         let json = json!({
             "query": QUERY,
             "variables": {
-                "search": &query.query,
+                "search": query.query.as_str(),
                 "perPage": 5
             }
         });
@@ -49,7 +49,7 @@ impl ApiProvider for AnilistProvider {
             .into_iter()
             .map(|anime| {
                 let media = ArtremisMedia::Anime {
-                    studio: anime.studios.nodes[0].name.clone(),
+                    studio: anime.studios.nodes.into_iter().next().map(|x| x.name),
                     episodes: anime.episodes,
                 };
 
@@ -63,8 +63,8 @@ impl ApiProvider for AnilistProvider {
                         .unwrap_or(anime.cover_image.large),
 
                     wide_url: anime.banner_image,
-                    description: anime.description.unwrap_or("No description".to_string()),
-                    tags: anime.genres.into_iter().map(normalize_tag).collect(),
+                    description: anime.description,
+                    tags: anime.genres,
                     release_year: anime.season_year,
                 };
 
@@ -76,10 +76,6 @@ impl ApiProvider for AnilistProvider {
             })
             .collect())
     }
-}
-
-fn normalize_tag(x: String) -> String {
-    x
 }
 
 const QUERY: &str = "
@@ -129,7 +125,7 @@ pub struct Page {
 #[derive(Debug, Deserialize)]
 pub struct Media {
     pub id: i64,
-    pub episodes: u32,
+    pub episodes: Option<u32>,
     pub genres: Vec<String>,
     #[serde(rename = "coverImage")]
     pub cover_image: CoverImage,

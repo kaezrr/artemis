@@ -1,32 +1,5 @@
 use super::*;
 
-pub struct TMDBMovieProvider {
-    client: Client,
-}
-
-impl Default for TMDBMovieProvider {
-    fn default() -> Self {
-        Self {
-            client: Client::new(),
-        }
-    }
-}
-
-#[async_trait::async_trait]
-impl ApiProvider for TMDBMovieProvider {
-    fn name(&self) -> &'static str {
-        "TMDB"
-    }
-
-    fn kind(&self) -> MediaKind {
-        MediaKind::Movie
-    }
-
-    async fn search(&self, query: &SearchQuery) -> Result<Vec<SearchResult>> {
-        todo!()
-    }
-}
-
 pub struct TMDBShowProvider {
     client: Client,
 }

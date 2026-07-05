@@ -23,6 +23,14 @@ impl Duration {
     pub fn seconds(s: i64) -> Self {
         Self(time::Duration::seconds(s))
     }
+
+    pub fn minutes(m: i64) -> Self {
+        Self(time::Duration::minutes(m))
+    }
+
+    pub fn hours(h: i64) -> Self {
+        Self(time::Duration::hours(h))
+    }
 }
 
 impl Deref for Duration {

@@ -74,6 +74,7 @@ impl ApiProvider for IGDBProvider {
             fields 
                 id,
                 name,
+                summary,
                 storyline,
                 genres.name,
                 first_release_date,
@@ -83,9 +84,7 @@ impl ApiProvider for IGDBProvider {
                 game_type.type,
                 involved_companies.developer;
             where game_type = 0 &
-                cover != null &
                 genres != null &
-                storyline != null &
                 involved_companies != null;
             limit 5;
             "#,
@@ -122,13 +121,13 @@ impl ApiProvider for IGDBProvider {
                     title: game.name,
 
                     cover_url: game.cover.map(|x| image_url(&x.image_id, "cover_big")),
-                    wide_url: game
-                        .artworks
-                        .into_iter()
-                        .next()
-                        .map(|x| image_url(&x.image_id, "1080p")),
+                    wide_url: game.artworks.and_then(|x| {
+                        x.into_iter()
+                            .next()
+                            .map(|x| image_url(&x.image_id, "1080p"))
+                    }),
 
-                    description: game.storyline,
+                    description: game.storyline.or(game.summary),
                     tags: game.genres.into_iter().map(|x| x.name).collect(),
 
                     release_year: game.first_release_date.and_then(|x| {
@@ -155,31 +154,32 @@ struct TokenResponse {
 }
 
 #[derive(Debug, Deserialize)]
-pub struct RawGame {
-    pub id: i64,
-    pub name: String,
-    pub storyline: Option<String>,
-    pub genres: Vec<Named>,
-    pub first_release_date: Option<i64>,
-    pub cover: Option<Image>,
-    pub artworks: Vec<Image>,
-    pub involved_companies: Vec<InvolvedCompany>,
+struct RawGame {
+    id: i64,
+    name: String,
+    summary: Option<String>,
+    storyline: Option<String>,
+    genres: Vec<Named>,
+    first_release_date: Option<i64>,
+    cover: Option<Image>,
+    artworks: Option<Vec<Image>>,
+    involved_companies: Vec<InvolvedCompany>,
 }
 
 #[derive(Debug, Deserialize)]
-pub struct Named {
-    pub name: String,
+struct Named {
+    name: String,
 }
 
 #[derive(Debug, Deserialize)]
-pub struct Image {
-    pub image_id: String,
+struct Image {
+    image_id: String,
 }
 
 #[derive(Debug, Deserialize)]
-pub struct InvolvedCompany {
-    pub company: Named,
-    pub developer: bool,
+struct InvolvedCompany {
+    company: Named,
+    developer: bool,
 }
 
 fn image_url(hash: &str, size: &str) -> String {

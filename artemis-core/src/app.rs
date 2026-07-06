@@ -7,6 +7,7 @@ use crate::media::Collection;
 use crate::media::LibraryEntry;
 use crate::media::LibraryItem;
 use crate::media::SearchResult;
+use crate::provider::ApiProvider;
 use crate::provider::CombinedSearchProvider;
 use crate::query::Dashboard;
 use crate::query::LibraryQuery;
@@ -25,6 +26,11 @@ impl Application {
             database: Database::open(path).await?,
             provider: CombinedSearchProvider::default(),
         })
+    }
+
+    pub fn add_provider(mut self, provider: Box<dyn ApiProvider>) -> Self {
+        self.provider.add_provider(provider);
+        self
     }
 
     pub async fn add(&self, search_result: SearchResult) -> Result<LibraryEntry> {
@@ -47,10 +53,15 @@ impl Application {
         self.database.query(query).await
     }
 
-    pub async fn random(&self, query: LibraryQuery) -> Result<LibraryItem> {
+    pub async fn random(&self, query: LibraryQuery) -> Result<Option<LibraryItem>> {
         let mut results = self.database.query(query).await?;
+
+        if results.is_empty() {
+            return Ok(None);
+        }
+
         let random_index = fastrand::usize(..results.len());
-        Ok(results.swap_remove(random_index))
+        Ok(Some(results.swap_remove(random_index)))
     }
 
     pub async fn add_collection(&self, title: &str, media_ids: &[i64]) -> Result<Collection> {
@@ -63,6 +74,7 @@ impl Application {
     pub async fn get_collections(&self) -> Result<Vec<Collection>> {
         self.database.get_collections().await
     }
+
     pub async fn update_collection(&self, id: i64, update: UpdateCollection) -> Result<Collection> {
         self.database.update_collection(id, update).await
     }

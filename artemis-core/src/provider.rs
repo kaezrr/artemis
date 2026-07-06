@@ -19,9 +19,8 @@ pub struct CombinedSearchProvider {
 }
 
 impl CombinedSearchProvider {
-    pub fn with_provider(mut self, provider: Box<dyn ApiProvider>) -> Self {
+    pub fn add_provider(&mut self, provider: Box<dyn ApiProvider>) {
         self.providers.push(provider);
-        self
     }
 
     pub async fn search(&self, query: &SearchQuery) -> Result<Vec<SearchResult>> {

@@ -1,0 +1,14 @@
+[package]
+name = "artemis-uniffi"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["cdylib"]
+name = "artemis"
+
+[dependencies]
+uniffi = { version = "0.32.0", features = ["cli"] }
+
+[build-dependencies]
+uniffi = { version = "0.32.0", features = ["build"] }

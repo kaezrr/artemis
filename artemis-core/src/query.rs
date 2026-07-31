@@ -1,7 +1,6 @@
 use std::collections::HashMap;
 
 use crate::media::Duration;
-use crate::media::LibraryEntry;
 use crate::media::LibraryItem;
 use crate::media::MediaKind;
 use crate::media::Status;

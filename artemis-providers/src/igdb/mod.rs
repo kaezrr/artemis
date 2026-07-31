@@ -17,13 +17,13 @@ pub struct IGDBProvider {
 }
 
 impl IGDBProvider {
-    pub fn new(client_id: String, client_secret: String) -> Self {
+    pub fn new(client_id: &str, client_secret: &str) -> Self {
         Self {
             client: Client::new(),
             token: Mutex::default(),
 
-            client_id,
-            client_secret,
+            client_id: client_id.to_string(),
+            client_secret: client_secret.to_string(),
         }
     }
 

@@ -13,10 +13,10 @@ pub struct TMDBShowProvider {
 }
 
 impl TMDBShowProvider {
-    pub fn new(api_key: String) -> Self {
+    pub fn new(api_key: &str) -> Self {
         Self {
             client: Client::new(),
-            api_key,
+            api_key: api_key.to_string(),
             base_url: Url::parse("https://api.themoviedb.org/3/").unwrap(),
         }
     }

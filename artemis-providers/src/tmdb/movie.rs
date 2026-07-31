@@ -1,6 +1,6 @@
 use std::collections::HashMap;
+use std::time::Duration;
 
-use artemis::media::Duration;
 use futures::StreamExt;
 use futures::stream::FuturesUnordered;
 use reqwest::Url;
@@ -117,7 +117,7 @@ impl TMDBMovieProvider {
                     .find(|x| x.job == "Director")
                     .map(|x| x.name);
 
-                let duration = response.runtime.map(i64::from).map(Duration::minutes);
+                let duration = response.runtime.map(u64::from).map(Duration::from_mins);
                 let tags = response.genres.into_iter().map(|x| x.name).collect();
 
                 Ok((

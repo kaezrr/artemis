@@ -1,4 +1,3 @@
-use crate::media::Duration;
 use crate::media::MediaKind;
 use crate::media::Status;
 use crate::media::UtcDateTime;
@@ -29,13 +28,13 @@ pub struct AnimeRow {
 #[derive(sqlx::FromRow)]
 pub struct MovieRow {
     pub director: Option<String>,
-    pub duration: Option<Duration>,
+    pub duration: Option<i64>,
 }
 
 #[derive(sqlx::FromRow)]
 pub struct GameRow {
     pub developer: Option<String>,
-    pub playtime: Option<Duration>,
+    pub playtime: Option<i64>,
 }
 
 #[derive(sqlx::FromRow)]

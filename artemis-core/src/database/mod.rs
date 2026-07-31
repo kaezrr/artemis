@@ -1,6 +1,7 @@
 mod row;
 
 use std::str::FromStr;
+use std::time::Duration;
 
 use sqlx::Sqlite;
 use sqlx::sqlite::SqliteConnectOptions;
@@ -92,7 +93,7 @@ impl Database {
             )
             .bind(media_id)
             .bind(director)
-            .bind(duration),
+            .bind(duration.map(|x| x.as_secs().cast_signed())),
 
             Media::Game {
                 developer,
@@ -102,7 +103,7 @@ impl Database {
             )
             .bind(media_id)
             .bind(developer)
-            .bind(playtime),
+            .bind(playtime.map(|x| x.as_secs().cast_signed())),
 
             Media::TVShow { creator, episodes } => sqlx::query(
                 "INSERT INTO tvshow_meta (media_id, creator, episodes) VALUES (?, ?, ?)",
@@ -181,7 +182,7 @@ impl Database {
 
                 Media::Movie {
                     director: row.director,
-                    duration: row.duration,
+                    duration: row.duration.map(|x| Duration::from_secs(x.cast_unsigned())),
                 }
             }
 
@@ -194,7 +195,7 @@ impl Database {
 
                 Media::Game {
                     developer: row.developer,
-                    playtime: row.playtime,
+                    playtime: row.playtime.map(|x| Duration::from_secs(x.cast_unsigned())),
                 }
             }
 
@@ -264,7 +265,7 @@ impl Database {
 
         if let Some(x) = &update.playtime {
             let result = sqlx::query("UPDATE game_meta SET playtime = ? WHERE media_id = ?")
-                .bind(x)
+                .bind(x.map(|x| x.as_secs().cast_signed()))
                 .bind(id)
                 .execute(&mut *tx)
                 .await?;

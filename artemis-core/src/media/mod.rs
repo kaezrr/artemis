@@ -1,6 +1,7 @@
 mod newtype;
 
-pub use newtype::Duration;
+use std::time::Duration;
+
 pub use newtype::UtcDateTime;
 
 #[derive(Debug)]

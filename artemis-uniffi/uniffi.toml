@@ -1,0 +1,5 @@
+[bindings.kotlin.custom_types.UtcDateTime]
+type_name = "Instant"
+imports = ["java.time.Instant"]
+lift = "Instant.ofEpochSecond({})"
+lower = "{}.epochSecond"

@@ -24,6 +24,9 @@ pub enum Error {
     #[error("No entry with matching id {0} was found")]
     NotFound(i64),
 
+    #[error("Timestamp could not be converted: {0:?}")]
+    TimeStampConversionError(#[from] time::error::ComponentRange),
+
     #[error("Api provider failed: {0:?}")]
     ProviderError(#[from] reqwest::Error),
 }

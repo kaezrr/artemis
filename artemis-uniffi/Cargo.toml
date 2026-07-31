@@ -8,6 +8,8 @@ crate-type = ["cdylib"]
 name = "artemis"
 
 [dependencies]
+artemis = { path = "../artemis-core", features = ["full"] }
+artemis-providers = { path = "../artemis-providers" }
 uniffi = { version = "0.32.0", features = ["cli"] }
 
 [build-dependencies]

@@ -74,7 +74,7 @@ pub struct Collection {
 
 #[derive(strum::EnumDiscriminants, Debug)]
 #[strum_discriminants(name(MediaKind))]
-#[strum_discriminants(derive(sqlx::Type, strum::EnumString))]
+#[strum_discriminants(derive(sqlx::Type, strum::EnumString, Hash))]
 #[strum_discriminants(sqlx(rename_all = "snake_case"))]
 #[strum_discriminants(doc = "This is a discriminant type without the associated data")]
 pub enum Media {

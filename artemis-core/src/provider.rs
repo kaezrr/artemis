@@ -23,6 +23,10 @@ impl CombinedSearchProvider {
         self.providers.push(provider);
     }
 
+    pub fn remove_provider(&mut self, name: &str) {
+        self.providers.retain(|x| x.name() != name);
+    }
+
     pub async fn search(&self, query: &SearchQuery) -> Result<Vec<SearchResult>> {
         let mut futures = self
             .providers

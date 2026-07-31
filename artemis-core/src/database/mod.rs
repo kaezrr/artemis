@@ -520,4 +520,10 @@ impl Database {
 
         Ok(builder.build_query_scalar().fetch_all(&self.pool).await?)
     }
+
+    pub async fn tags_list(&self) -> Result<Vec<String>> {
+        Ok(sqlx::query_scalar("SELECT tag FROM media_tag")
+            .fetch_all(&self.pool)
+            .await?)
+    }
 }

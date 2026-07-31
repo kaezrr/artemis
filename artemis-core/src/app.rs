@@ -12,6 +12,7 @@ use crate::provider::CombinedSearchProvider;
 use crate::query::Dashboard;
 use crate::query::LibraryQuery;
 use crate::query::SearchQuery;
+use crate::query::SortBy;
 use crate::query::UpdateCollection;
 use crate::query::UpdateEntry;
 
@@ -21,16 +22,19 @@ pub struct Application {
 }
 
 impl Application {
-    pub async fn open(path: &str) -> Result<Self> {
+    pub async fn open(db_path: &str) -> Result<Self> {
         Ok(Self {
-            database: Database::open(path).await?,
+            database: Database::open(db_path).await?,
             provider: CombinedSearchProvider::default(),
         })
     }
 
-    pub fn add_provider(mut self, provider: Box<dyn ApiProvider>) -> Self {
+    pub fn add_provider(&mut self, provider: Box<dyn ApiProvider>) {
         self.provider.add_provider(provider);
-        self
+    }
+
+    pub fn remove_provider(&mut self, name: &str) {
+        self.provider.remove_provider(name);
     }
 
     pub async fn add(&self, search_result: SearchResult) -> Result<LibraryEntry> {
@@ -83,8 +87,31 @@ impl Application {
         self.database.delete_collection(id).await
     }
 
+    pub async fn tags_list(&self) -> Result<Vec<String>> {
+        self.database.tags_list().await
+    }
+
     pub async fn dashboard(&self) -> Result<Dashboard> {
-        todo!()
+        let recent = self
+            .database
+            .query(LibraryQuery {
+                sort_by: SortBy::LastModified,
+                limit: Some(5),
+                ..Default::default()
+            })
+            .await?;
+
+        let all_items = self.database.query(LibraryQuery::default()).await?;
+        let mut media_counts = HashMap::new();
+
+        all_items.iter().for_each(|x| {
+            *media_counts.entry(x.kind).or_insert(0) += 1;
+        });
+
+        Ok(Dashboard {
+            recent,
+            media_counts,
+        })
     }
 
     pub async fn search(&self, query: &SearchQuery) -> Result<Vec<SearchResult>> {

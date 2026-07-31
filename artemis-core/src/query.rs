@@ -2,6 +2,7 @@ use std::collections::HashMap;
 
 use crate::media::Duration;
 use crate::media::LibraryEntry;
+use crate::media::LibraryItem;
 use crate::media::MediaKind;
 use crate::media::Status;
 
@@ -50,7 +51,7 @@ pub enum TagFilter {
 }
 
 pub struct Dashboard {
-    pub recent: Vec<LibraryEntry>,
+    pub recent: Vec<LibraryItem>,
     pub media_counts: HashMap<MediaKind, u32>,
 }
 

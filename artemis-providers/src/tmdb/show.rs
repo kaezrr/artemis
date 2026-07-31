@@ -22,7 +22,6 @@ impl TMDBShowProvider {
     }
 }
 
-#[async_trait::async_trait]
 impl ApiProvider for TMDBShowProvider {
     fn name(&self) -> &'static str {
         "TMDB"

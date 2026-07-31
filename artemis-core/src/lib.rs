@@ -1,3 +1,7 @@
+use crate::media::MediaKind;
+use crate::media::SearchResult;
+use crate::query::SearchQuery;
+
 cfg_select! {
     feature = "full" => {
         mod app;
@@ -10,7 +14,6 @@ cfg_select! {
 }
 
 pub mod media;
-pub mod provider;
 pub mod query;
 
 #[derive(thiserror::Error, Debug)]
@@ -32,3 +35,10 @@ pub enum Error {
 }
 
 pub type Result<T> = std::result::Result<T, Error>;
+
+pub trait ApiProvider: Send + Sync {
+    fn name(&self) -> &'static str;
+    fn kind(&self) -> MediaKind;
+    fn search(&self, query: &SearchQuery)
+    -> impl Future<Output = Result<Vec<SearchResult>>> + Send;
+}

@@ -55,7 +55,6 @@ impl IGDBProvider {
     }
 }
 
-#[async_trait::async_trait]
 impl ApiProvider for IGDBProvider {
     fn name(&self) -> &'static str {
         "IGDB"

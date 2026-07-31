@@ -4,7 +4,6 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-async-trait = "0.1.89"
 fastrand = { version = "2.4.1", optional = true }
 futures = "0.3.32"
 reqwest = "0.13.4"

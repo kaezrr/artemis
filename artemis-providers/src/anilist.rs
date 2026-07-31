@@ -12,7 +12,6 @@ impl Default for AnilistProvider {
     }
 }
 
-#[async_trait::async_trait]
 impl ApiProvider for AnilistProvider {
     fn name(&self) -> &'static str {
         "AniList"

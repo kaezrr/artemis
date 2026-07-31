@@ -1,5 +1,4 @@
 use std::collections::HashMap;
-use std::collections::HashSet;
 
 use crate::Result;
 use crate::database::Database;
@@ -7,34 +6,21 @@ use crate::media::Collection;
 use crate::media::LibraryEntry;
 use crate::media::LibraryItem;
 use crate::media::SearchResult;
-use crate::provider::ApiProvider;
-use crate::provider::CombinedSearchProvider;
 use crate::query::Dashboard;
 use crate::query::LibraryQuery;
-use crate::query::SearchQuery;
 use crate::query::SortBy;
 use crate::query::UpdateCollection;
 use crate::query::UpdateEntry;
 
 pub struct Application {
     database: Database,
-    provider: CombinedSearchProvider,
 }
 
 impl Application {
     pub async fn open(db_path: &str) -> Result<Self> {
         Ok(Self {
             database: Database::open(db_path).await?,
-            provider: CombinedSearchProvider::default(),
         })
-    }
-
-    pub fn add_provider(&mut self, provider: Box<dyn ApiProvider>) {
-        self.provider.add_provider(provider);
-    }
-
-    pub fn remove_provider(&mut self, name: &str) {
-        self.provider.remove_provider(name);
     }
 
     pub async fn add(&self, search_result: SearchResult) -> Result<LibraryEntry> {
@@ -114,27 +100,24 @@ impl Application {
         })
     }
 
-    pub async fn search(&self, query: &SearchQuery) -> Result<Vec<SearchResult>> {
-        let mut results = self.provider.search(query).await?;
+    pub async fn mark_search_results(
+        &self,
+        mut search_results: Vec<SearchResult>,
+    ) -> Result<Vec<SearchResult>> {
+        let pairs: Vec<(&str, i64)> = search_results
+            .iter()
+            .map(|x| (x.metadata.provider.as_str(), x.metadata.provider_id))
+            .collect();
 
-        let mut provider_to_ids = HashMap::<&str, Vec<i64>>::new();
-        for r in &results {
-            provider_to_ids
-                .entry(&r.metadata.provider)
-                .or_default()
-                .push(r.metadata.provider_id);
+        let existing = self.database.existing_ids(&pairs).await?;
+
+        for result in search_results.iter_mut() {
+            result.in_library = existing.contains(&(
+                result.metadata.provider.clone(),
+                result.metadata.provider_id,
+            ));
         }
 
-        let mut set = HashSet::<(String, i64)>::new();
-        for (provider, ids) in provider_to_ids.into_iter() {
-            let existing_ids = self.database.existing_ids(provider, &ids).await?;
-            set.extend(existing_ids.into_iter().map(|id| (provider.to_owned(), id)));
-        }
-
-        for r in &mut results {
-            r.in_library = set.contains(&(r.metadata.provider.clone(), r.metadata.provider_id));
-        }
-
-        Ok(results)
+        Ok(search_results)
     }
 }

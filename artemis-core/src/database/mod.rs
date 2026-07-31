@@ -1,5 +1,6 @@
 mod row;
 
+use std::collections::HashSet;
 use std::str::FromStr;
 use std::time::Duration;
 
@@ -505,21 +506,34 @@ impl Database {
             .ok_or(Error::NotFound(id))
     }
 
-    pub async fn existing_ids(&self, provider: &str, external_ids: &[i64]) -> Result<Vec<i64>> {
-        let mut builder =
-            sqlx::QueryBuilder::<Sqlite>::new("SELECT provider_id FROM media WHERE provider = ");
-
-        builder.push_bind(provider);
-        builder.push(" AND provider_id IN (");
-
-        let mut separated = builder.separated(", ");
-        for id in external_ids {
-            separated.push_bind(id);
+    pub async fn existing_ids<S: AsRef<str>>(
+        &self,
+        pairs: &[(S, i64)],
+    ) -> Result<HashSet<(String, i64)>> {
+        if pairs.is_empty() {
+            return Ok(HashSet::new());
         }
 
-        builder.push(")");
+        let mut builder =
+            sqlx::QueryBuilder::<Sqlite>::new("SELECT provider, provider_id FROM media WHERE ");
 
-        Ok(builder.build_query_scalar().fetch_all(&self.pool).await?)
+        for (i, (provider, id)) in pairs.iter().enumerate() {
+            if i > 0 {
+                builder.push(" OR ");
+            }
+            builder.push("(provider = ");
+            builder.push_bind(provider.as_ref());
+            builder.push(" AND provider_id = ");
+            builder.push_bind(id);
+            builder.push(")");
+        }
+
+        Ok(builder
+            .build_query_as::<(String, i64)>()
+            .fetch_all(&self.pool)
+            .await?
+            .into_iter()
+            .collect())
     }
 
     pub async fn tags_list(&self) -> Result<Vec<String>> {

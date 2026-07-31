@@ -1,177 +1,100 @@
 uniffi::setup_scaffolding!();
 
-use std::collections::HashMap;
-use std::time::Duration;
+mod provider;
+mod types;
 
-use artemis::media::*;
-use artemis::query::*;
+use artemis::Error;
+use artemis::media::Collection;
+use artemis::media::LibraryEntry;
+use artemis::media::LibraryItem;
+use artemis::media::SearchResult;
+use artemis::query::Dashboard;
+use artemis::query::LibraryQuery;
+use artemis::query::UpdateCollection;
+use artemis::query::UpdateEntry;
 
-uniffi::custom_type!(UtcDateTime, i64, {
-    remote,
-    lower:|d| d.unix_timestamp(),
-    try_lift: |d| Ok(UtcDateTime::from_unix_timestamp(d)?)
-});
+pub type Result<T> = std::result::Result<T, Error>;
 
-#[uniffi::remote(Record)]
-struct LibraryEntry {
-    id: i64,
-
-    media: Media,
-    metadata: ProviderMetadata,
-
-    rating: Option<u8>,
-    notes: Option<String>,
-    status: Status,
-
-    created_at: UtcDateTime,
-    updated_at: UtcDateTime,
+#[uniffi::remote(Error)]
+#[uniffi(flat_error)]
+pub enum Error {
+    DatabaseError,
+    MigrationError,
+    NotFound,
+    TimeStampConversionError,
+    ProviderError,
 }
 
-#[uniffi::remote(Record)]
-struct LibraryItem {
-    id: i64,
-
-    kind: MediaKind,
-    title: String,
-    cover_url: String,
-
-    status: Status,
-    rating: Option<u8>,
+#[derive(uniffi::Object)]
+struct Application {
+    app: artemis::Application,
 }
 
-#[uniffi::remote(Record)]
-struct ProviderMetadata {
-    provider: String,
-    provider_id: i64,
+#[uniffi::export]
+impl Application {
+    #[uniffi::constructor]
+    pub async fn open(db_path: &str) -> Result<Self> {
+        Ok(Self {
+            app: artemis::Application::open(db_path).await?,
+        })
+    }
 
-    title: String,
-    cover_url: Option<String>,
-    wide_url: Option<String>,
+    pub async fn add(&self, search_result: SearchResult) -> Result<LibraryEntry> {
+        self.app.add(search_result).await
+    }
 
-    description: Option<String>,
-    tags: Vec<String>,
-    release_year: Option<u32>,
-}
+    pub async fn get(&self, id: i64) -> Result<LibraryEntry> {
+        self.app.get(id).await
+    }
 
-#[uniffi::remote(Record)]
-struct SearchResult {
-    media: Media,
-    metadata: ProviderMetadata,
-    in_library: bool,
-}
+    pub async fn update(&self, id: i64, update: UpdateEntry) -> Result<LibraryEntry> {
+        self.app.update(id, update).await
+    }
 
-#[uniffi::remote(Enum)]
-enum Status {
-    Planned,
-    InProgress,
-    Finished,
-    OnHold,
-    Dropped,
-}
+    pub async fn delete(&self, id: i64) -> Result<()> {
+        self.app.delete(id).await
+    }
 
-#[uniffi::remote(Record)]
-struct Collection {
-    id: i64,
-    title: String,
-    count: i64,
-}
+    pub async fn query(&self, query: LibraryQuery) -> Result<Vec<LibraryItem>> {
+        self.app.query(query).await
+    }
 
-#[uniffi::remote(Enum)]
-enum Media {
-    Anime {
-        studio: Option<String>,
-        episodes: Option<u32>,
-    },
+    pub async fn random(&self, query: LibraryQuery) -> Result<Option<LibraryItem>> {
+        self.app.random(query).await
+    }
 
-    Movie {
-        director: Option<String>,
-        duration: Option<Duration>,
-    },
+    pub async fn add_collection(&self, title: &str, media_ids: &[i64]) -> Result<Collection> {
+        self.app.add_collection(title, media_ids).await
+    }
 
-    Game {
-        developer: Option<String>,
-        playtime: Option<Duration>,
-    },
+    pub async fn get_collection(&self, id: i64) -> Result<Collection> {
+        self.app.get_collection(id).await
+    }
 
-    TVShow {
-        creator: Option<String>,
-        episodes: Option<u32>,
-    },
-}
+    pub async fn get_collections(&self) -> Result<Vec<Collection>> {
+        self.app.get_collections().await
+    }
 
-#[uniffi::remote(Enum)]
-enum MediaKind {
-    Anime,
-    Movie,
-    Game,
-    TVShow,
-}
+    pub async fn update_collection(&self, id: i64, update: UpdateCollection) -> Result<Collection> {
+        self.app.update_collection(id, update).await
+    }
 
-#[uniffi::remote(Record)]
-pub struct LibraryQuery {
-    pub search: Option<String>,
-    pub kind: Option<MediaKind>,
+    pub async fn delete_collection(&self, id: i64) -> Result<()> {
+        self.app.delete_collection(id).await
+    }
 
-    pub sort_by: SortBy,
-    pub order: SortOrder,
+    pub async fn tags_list(&self) -> Result<Vec<String>> {
+        self.app.tags_list().await
+    }
 
-    pub status: Option<Status>,
-    pub tag_filter: Option<TagFilter>,
+    pub async fn dashboard(&self) -> Result<Dashboard> {
+        self.app.dashboard().await
+    }
 
-    pub limit: Option<u32>,
-    pub offset: Option<u32>,
-
-    pub collection_id: Option<i64>,
-}
-
-#[uniffi::remote(Record)]
-pub struct SearchQuery {
-    pub query: String,
-    pub kind: Option<MediaKind>,
-}
-
-#[uniffi::remote(Enum)]
-pub enum SortOrder {
-    Ascending,
-    Descending,
-}
-
-#[uniffi::remote(Enum)]
-pub enum SortBy {
-    Title,
-    Rating,
-    ReleaseYear,
-    LastModified,
-}
-
-#[uniffi::remote(Enum)]
-pub enum TagFilter {
-    Or(Vec<String>),
-    And(Vec<String>),
-}
-
-#[uniffi::remote(Record)]
-pub struct Dashboard {
-    pub recent: Vec<LibraryItem>,
-    pub media_counts: HashMap<MediaKind, u32>,
-}
-
-#[uniffi::remote(Record)]
-pub struct UpdateEntry {
-    pub status: Option<Status>,
-    pub notes: Option<Option<String>>,
-    pub rating: Option<Option<u8>>,
-    pub playtime: Option<Option<Duration>>,
-}
-
-#[uniffi::remote(Record)]
-pub struct UpdateCollection {
-    pub title: Option<String>,
-    pub update_entries: Vec<CollectionAction>,
-}
-
-#[uniffi::remote(Enum)]
-pub enum CollectionAction {
-    Add(i64),
-    Remove(i64),
+    pub async fn mark_search_results(
+        &self,
+        search_results: Vec<SearchResult>,
+    ) -> Result<Vec<SearchResult>> {
+        self.app.mark_search_results(search_results).await
+    }
 }

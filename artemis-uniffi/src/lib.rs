@@ -1,16 +1,10 @@
 uniffi::setup_scaffolding!();
 
+use std::collections::HashMap;
 use std::time::Duration;
 
-use artemis::media::Collection;
-use artemis::media::LibraryEntry;
-use artemis::media::LibraryItem;
-use artemis::media::Media;
-use artemis::media::MediaKind;
-use artemis::media::ProviderMetadata;
-use artemis::media::SearchResult;
-use artemis::media::Status;
-use artemis::media::UtcDateTime;
+use artemis::media::*;
+use artemis::query::*;
 
 uniffi::custom_type!(UtcDateTime, i64, {
     remote,
@@ -111,4 +105,73 @@ enum MediaKind {
     Movie,
     Game,
     TVShow,
+}
+
+#[uniffi::remote(Record)]
+pub struct LibraryQuery {
+    pub search: Option<String>,
+    pub kind: Option<MediaKind>,
+
+    pub sort_by: SortBy,
+    pub order: SortOrder,
+
+    pub status: Option<Status>,
+    pub tag_filter: Option<TagFilter>,
+
+    pub limit: Option<u32>,
+    pub offset: Option<u32>,
+
+    pub collection_id: Option<i64>,
+}
+
+#[uniffi::remote(Record)]
+pub struct SearchQuery {
+    pub query: String,
+    pub kind: Option<MediaKind>,
+}
+
+#[uniffi::remote(Enum)]
+pub enum SortOrder {
+    Ascending,
+    Descending,
+}
+
+#[uniffi::remote(Enum)]
+pub enum SortBy {
+    Title,
+    Rating,
+    ReleaseYear,
+    LastModified,
+}
+
+#[uniffi::remote(Enum)]
+pub enum TagFilter {
+    Or(Vec<String>),
+    And(Vec<String>),
+}
+
+#[uniffi::remote(Record)]
+pub struct Dashboard {
+    pub recent: Vec<LibraryItem>,
+    pub media_counts: HashMap<MediaKind, u32>,
+}
+
+#[uniffi::remote(Record)]
+pub struct UpdateEntry {
+    pub status: Option<Status>,
+    pub notes: Option<Option<String>>,
+    pub rating: Option<Option<u8>>,
+    pub playtime: Option<Option<Duration>>,
+}
+
+#[uniffi::remote(Record)]
+pub struct UpdateCollection {
+    pub title: Option<String>,
+    pub update_entries: Vec<CollectionAction>,
+}
+
+#[uniffi::remote(Enum)]
+pub enum CollectionAction {
+    Add(i64),
+    Remove(i64),
 }

@@ -10,7 +10,7 @@ macro_rules! provider_wrapper {
             inner: $inner,
         }
 
-        #[uniffi::export]
+        #[uniffi::export(async_runtime = "tokio")]
         impl $wrapper {
             fn name(&self) -> String {
                 self.inner.name().to_string()

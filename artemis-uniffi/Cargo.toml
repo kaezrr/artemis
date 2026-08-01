@@ -10,7 +10,9 @@ name = "artemis"
 [dependencies]
 artemis = { path = "../artemis-core", features = ["full"] }
 artemis-providers = { path = "../artemis-providers" }
-uniffi = { version = "0.32.0", features = ["cli"] }
+jni = "0.22.4"
+rustls-platform-verifier = { version = "0.7.0", features = ["jni"] }
+uniffi = { version = "0.32.0", features = ["cli", "tokio"] }
 
 [build-dependencies]
 uniffi = { version = "0.32.0", features = ["build"] }

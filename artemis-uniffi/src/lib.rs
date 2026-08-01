@@ -25,6 +25,18 @@ pub enum Error {
     ProviderError,
 }
 
+#[cfg(target_os = "android")]
+#[jni::jni_mangle("dev.kaezr.artemis.RustPlatformVerifier")]
+pub fn init<'caller>(
+    mut unowned_env: jni::EnvUnowned<'caller>,
+    _class: jni::objects::JClass<'caller>,
+    context: jni::objects::JObject<'caller>,
+) {
+    unowned_env
+        .with_env(|env| rustls_platform_verifier::android::init_with_env(env, context))
+        .resolve::<jni::errors::ThrowRuntimeExAndDefault>();
+}
+
 #[derive(uniffi::Object)]
 struct Application {
     app: artemis::Application,

@@ -31,11 +31,11 @@ impl ApiProvider for TMDBShowProvider {
         MediaKind::TVShow
     }
 
-    async fn search(&self, query: &SearchQuery) -> Result<Vec<SearchResult>> {
+    async fn search(&self, query: &str) -> Result<Vec<SearchResult>> {
         let mut url = self.base_url.join("search/tv").unwrap();
 
         url.query_pairs_mut()
-            .append_pair("query", query.query.as_str())
+            .append_pair("query", query)
             .append_pair("include_adult", "true")
             .append_pair("language", "en-US")
             .append_pair("page", "1")

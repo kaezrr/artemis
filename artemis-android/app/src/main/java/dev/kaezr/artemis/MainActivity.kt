@@ -21,6 +21,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import dev.kaezr.artemis.ui.theme.ArtemisTheme
+import uniffi.artemis.AnilistProvider
+import uniffi.artemis.SearchQuery
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,6 +78,9 @@ enum class AppDestinations(
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
+    val anilist = AnilistProvider();
+
+    val result = anilist.search(SearchQuery(query="steins gate"))
     Text(
         text = "Hello $name!",
         modifier = modifier

@@ -2,7 +2,6 @@ use artemis::ApiProvider;
 use artemis::Result;
 use artemis::media::MediaKind;
 use artemis::media::SearchResult;
-use artemis::query::SearchQuery;
 
 macro_rules! provider_wrapper {
     ($wrapper:ident, $inner:path) => {
@@ -21,7 +20,7 @@ macro_rules! provider_wrapper {
                 self.inner.kind()
             }
 
-            async fn search(&self, query: SearchQuery) -> Result<Vec<SearchResult>> {
+            async fn search(&self, query: &str) -> Result<Vec<SearchResult>> {
                 self.inner.search(&query).await
             }
         }

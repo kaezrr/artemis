@@ -64,7 +64,7 @@ impl ApiProvider for IGDBProvider {
         MediaKind::Game
     }
 
-    async fn search(&self, query: &SearchQuery) -> Result<Vec<SearchResult>> {
+    async fn search(&self, query: &str) -> Result<Vec<SearchResult>> {
         let token = self.access_token().await?;
 
         let body = format!(
@@ -87,7 +87,7 @@ impl ApiProvider for IGDBProvider {
                 involved_companies != null;
             limit 5;
             "#,
-            &query.query
+            query
         );
 
         let response = self

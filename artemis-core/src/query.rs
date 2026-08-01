@@ -23,12 +23,6 @@ pub struct LibraryQuery {
 }
 
 #[derive(Default)]
-pub struct SearchQuery {
-    pub query: String,
-    pub kind: Option<MediaKind>,
-}
-
-#[derive(Default)]
 pub enum SortOrder {
     #[default]
     Ascending,

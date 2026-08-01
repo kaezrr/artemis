@@ -1333,7 +1333,7 @@ private fun uniffiCheckApiChecksums(lib: IntegrityCheckingUniffiLib) {
     if (lib.uniffi_artemis_checksum_method_anilistprovider_name() != 8620) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_artemis_checksum_method_anilistprovider_search() != 23733) {
+    if (lib.uniffi_artemis_checksum_method_anilistprovider_search() != 44968) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
     if (lib.uniffi_artemis_checksum_method_igdbprovider_kind() != 42973) {
@@ -1342,7 +1342,7 @@ private fun uniffiCheckApiChecksums(lib: IntegrityCheckingUniffiLib) {
     if (lib.uniffi_artemis_checksum_method_igdbprovider_name() != 45011) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_artemis_checksum_method_igdbprovider_search() != 27053) {
+    if (lib.uniffi_artemis_checksum_method_igdbprovider_search() != 30367) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
     if (lib.uniffi_artemis_checksum_method_tmdbmovieprovider_kind() != 16349) {
@@ -1351,7 +1351,7 @@ private fun uniffiCheckApiChecksums(lib: IntegrityCheckingUniffiLib) {
     if (lib.uniffi_artemis_checksum_method_tmdbmovieprovider_name() != 46537) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_artemis_checksum_method_tmdbmovieprovider_search() != 5777) {
+    if (lib.uniffi_artemis_checksum_method_tmdbmovieprovider_search() != 27380) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
     if (lib.uniffi_artemis_checksum_method_tmdbshowprovider_kind() != 34565) {
@@ -1360,7 +1360,7 @@ private fun uniffiCheckApiChecksums(lib: IntegrityCheckingUniffiLib) {
     if (lib.uniffi_artemis_checksum_method_tmdbshowprovider_name() != 42437) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_artemis_checksum_method_tmdbshowprovider_search() != 6578) {
+    if (lib.uniffi_artemis_checksum_method_tmdbshowprovider_search() != 45898) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
     if (lib.uniffi_artemis_checksum_constructor_application_open() != 13548) {
@@ -1879,7 +1879,7 @@ public interface AnilistProviderInterface {
 
     fun `name`(): kotlin.String
 
-    suspend fun `search`(`query`: SearchQuery): List<SearchResult>
+    suspend fun `search`(`query`: kotlin.String): List<SearchResult>
 
     companion object
 }
@@ -2021,12 +2021,12 @@ open class AnilistProvider :
 
     @Throws(Exception::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
-    override suspend fun `search`(`query`: SearchQuery): List<SearchResult> =
+    override suspend fun `search`(`query`: kotlin.String): List<SearchResult> =
         uniffiRustCallAsync(
             callWithHandle { uniffiHandle ->
                 UniffiLib.uniffi_artemis_fn_method_anilistprovider_search(
                     uniffiHandle,
-                    FfiConverterTypeSearchQuery.lower(`query`),
+                    FfiConverterString.lower(`query`),
                 )
             },
             { future, callback, continuation -> UniffiLib.ffi_artemis_rust_future_poll_rust_buffer(future, callback, continuation) },
@@ -2714,7 +2714,7 @@ public interface IgdbProviderInterface {
 
     fun `name`(): kotlin.String
 
-    suspend fun `search`(`query`: SearchQuery): List<SearchResult>
+    suspend fun `search`(`query`: kotlin.String): List<SearchResult>
 
     companion object
 }
@@ -2860,12 +2860,12 @@ open class IgdbProvider :
 
     @Throws(Exception::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
-    override suspend fun `search`(`query`: SearchQuery): List<SearchResult> =
+    override suspend fun `search`(`query`: kotlin.String): List<SearchResult> =
         uniffiRustCallAsync(
             callWithHandle { uniffiHandle ->
                 UniffiLib.uniffi_artemis_fn_method_igdbprovider_search(
                     uniffiHandle,
-                    FfiConverterTypeSearchQuery.lower(`query`),
+                    FfiConverterString.lower(`query`),
                 )
             },
             { future, callback, continuation -> UniffiLib.ffi_artemis_rust_future_poll_rust_buffer(future, callback, continuation) },
@@ -3002,7 +3002,7 @@ public interface TmdbMovieProviderInterface {
 
     fun `name`(): kotlin.String
 
-    suspend fun `search`(`query`: SearchQuery): List<SearchResult>
+    suspend fun `search`(`query`: kotlin.String): List<SearchResult>
 
     companion object
 }
@@ -3144,12 +3144,12 @@ open class TmdbMovieProvider :
 
     @Throws(Exception::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
-    override suspend fun `search`(`query`: SearchQuery): List<SearchResult> =
+    override suspend fun `search`(`query`: kotlin.String): List<SearchResult> =
         uniffiRustCallAsync(
             callWithHandle { uniffiHandle ->
                 UniffiLib.uniffi_artemis_fn_method_tmdbmovieprovider_search(
                     uniffiHandle,
-                    FfiConverterTypeSearchQuery.lower(`query`),
+                    FfiConverterString.lower(`query`),
                 )
             },
             { future, callback, continuation -> UniffiLib.ffi_artemis_rust_future_poll_rust_buffer(future, callback, continuation) },
@@ -3286,7 +3286,7 @@ public interface TmdbShowProviderInterface {
 
     fun `name`(): kotlin.String
 
-    suspend fun `search`(`query`: SearchQuery): List<SearchResult>
+    suspend fun `search`(`query`: kotlin.String): List<SearchResult>
 
     companion object
 }
@@ -3428,12 +3428,12 @@ open class TmdbShowProvider :
 
     @Throws(Exception::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
-    override suspend fun `search`(`query`: SearchQuery): List<SearchResult> =
+    override suspend fun `search`(`query`: kotlin.String): List<SearchResult> =
         uniffiRustCallAsync(
             callWithHandle { uniffiHandle ->
                 UniffiLib.uniffi_artemis_fn_method_tmdbshowprovider_search(
                     uniffiHandle,
-                    FfiConverterTypeSearchQuery.lower(`query`),
+                    FfiConverterString.lower(`query`),
                 )
             },
             { future, callback, continuation -> UniffiLib.ffi_artemis_rust_future_poll_rust_buffer(future, callback, continuation) },
@@ -3756,38 +3756,6 @@ public object FfiConverterTypeProviderMetadata : FfiConverterRustBuffer<Provider
         FfiConverterOptionalString.write(value.`description`, buf)
         FfiConverterSequenceString.write(value.`tags`, buf)
         FfiConverterOptionalUInt.write(value.`releaseYear`, buf)
-    }
-}
-
-data class SearchQuery(
-    var `query`: kotlin.String,
-    var `kind`: MediaKind?,
-) {
-    companion object
-}
-
-/**
- * @suppress
- */
-public object FfiConverterTypeSearchQuery : FfiConverterRustBuffer<SearchQuery> {
-    override fun read(buf: ByteBuffer): SearchQuery =
-        SearchQuery(
-            FfiConverterString.read(buf),
-            FfiConverterOptionalTypeMediaKind.read(buf),
-        )
-
-    override fun allocationSize(value: SearchQuery) =
-        (
-            FfiConverterString.allocationSize(value.`query`) +
-                FfiConverterOptionalTypeMediaKind.allocationSize(value.`kind`)
-        )
-
-    override fun write(
-        value: SearchQuery,
-        buf: ByteBuffer,
-    ) {
-        FfiConverterString.write(value.`query`, buf)
-        FfiConverterOptionalTypeMediaKind.write(value.`kind`, buf)
     }
 }
 

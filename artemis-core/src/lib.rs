@@ -1,6 +1,5 @@
 use crate::media::MediaKind;
 use crate::media::SearchResult;
-use crate::query::SearchQuery;
 
 cfg_select! {
     feature = "full" => {
@@ -39,6 +38,5 @@ pub type Result<T> = std::result::Result<T, Error>;
 pub trait ApiProvider: Send + Sync {
     fn name(&self) -> &'static str;
     fn kind(&self) -> MediaKind;
-    fn search(&self, query: &SearchQuery)
-    -> impl Future<Output = Result<Vec<SearchResult>>> + Send;
+    fn search(&self, query: &str) -> impl Future<Output = Result<Vec<SearchResult>>> + Send;
 }

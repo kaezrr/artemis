@@ -21,11 +21,11 @@ impl ApiProvider for AnilistProvider {
         MediaKind::Anime
     }
 
-    async fn search(&self, query: &SearchQuery) -> Result<Vec<SearchResult>> {
+    async fn search(&self, query: &str) -> Result<Vec<SearchResult>> {
         let json = json!({
             "query": QUERY,
             "variables": {
-                "search": query.query.as_str(),
+                "search": query,
                 "perPage": 5
             }
         });

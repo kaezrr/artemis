@@ -122,12 +122,6 @@ pub struct LibraryQuery {
     pub collection_id: Option<i64>,
 }
 
-#[uniffi::remote(Record)]
-pub struct SearchQuery {
-    pub query: String,
-    pub kind: Option<MediaKind>,
-}
-
 #[uniffi::remote(Enum)]
 pub enum SortOrder {
     Ascending,

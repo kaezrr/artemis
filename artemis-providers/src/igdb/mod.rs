@@ -55,7 +55,7 @@ impl IGDBProvider {
     }
 }
 
-impl ApiProvider for IGDBProvider {
+impl IGDBProvider {
     fn name(&self) -> &'static str {
         "IGDB"
     }

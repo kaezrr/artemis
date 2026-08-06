@@ -32,6 +32,11 @@ pub struct Database {
 }
 
 impl Database {
+    /// Opens the database at `path`, creating it if missing.
+    ///
+    /// # Errors
+    ///
+    /// Returns a database error if the connection or migrations fail.
     pub async fn open(path: &str) -> Result<Self> {
         let opts = SqliteConnectOptions::from_str(path)?
             .create_if_missing(true)
@@ -48,6 +53,11 @@ impl Database {
         Ok(Self { pool })
     }
 
+    /// Adds a media entry and returns it.
+    ///
+    /// # Errors
+    ///
+    /// Returns a database error if the insert fails.
     pub async fn add(&self, search_result: SearchResult) -> Result<LibraryEntry> {
         let mut tx = self.pool.begin().await?;
         let now = UtcDateTime::now();
@@ -129,6 +139,11 @@ impl Database {
         self.get(media_id).await
     }
 
+    /// Returns the media entry with the given `id`.
+    ///
+    /// # Errors
+    ///
+    /// Returns [`Error::NotFound`] if no entry matches `id`, otherwise a database error.
     pub async fn get(&self, id: i64) -> Result<LibraryEntry> {
         let entry: row::MediaRow = sqlx::query_as(
             "SELECT
@@ -238,6 +253,11 @@ impl Database {
         })
     }
 
+    /// Updates the media entry with the given `id`.
+    ///
+    /// # Errors
+    ///
+    /// Returns [`Error::NotFound`] if no entry matches `id`, otherwise a database error.
     pub async fn update(&self, id: i64, update: UpdateEntry) -> Result<LibraryEntry> {
         let mut tx = self.pool.begin().await?;
 
@@ -281,6 +301,11 @@ impl Database {
         self.get(id).await
     }
 
+    /// Removes the media entry with the given `id`.
+    ///
+    /// # Errors
+    ///
+    /// Returns [`Error::NotFound`] if no entry matches `id`, otherwise a database error.
     pub async fn delete(&self, id: i64) -> Result<()> {
         let result = sqlx::query("DELETE FROM media WHERE id = ?")
             .bind(id)
@@ -292,15 +317,20 @@ impl Database {
             .ok_or(Error::NotFound(id))
     }
 
+    /// Queries the library for media entries.
+    ///
+    /// # Errors
+    ///
+    /// Returns a database error if the query fails.
     pub async fn query(&self, query: LibraryQuery) -> Result<Vec<LibraryItem>> {
         let mut qb = sqlx::QueryBuilder::<Sqlite>::new(
-            r#"
+            "
         SELECT 
             m.id,
             m.kind, m.title, m.cover_url,
             m.status, m.rating
         FROM media AS m
-        WHERE 1 = 1"#,
+        WHERE 1 = 1",
         );
 
         if let Some(search) = &query.search {
@@ -334,7 +364,7 @@ impl Database {
                     qb.push(" AND id IN (SELECT media_id FROM media_tag WHERE tag IN (");
 
                     let mut separated = qb.separated(", ");
-                    for tag in tags.iter() {
+                    for tag in tags {
                         separated.push_bind(tag);
                     }
                     separated.push_unseparated(") ");
@@ -346,7 +376,7 @@ impl Database {
                     qb.push(" AND m.id IN (SELECT media_id FROM media_tag WHERE tag IN (");
 
                     let mut separated = qb.separated(", ");
-                    for tag in tags.iter() {
+                    for tag in tags {
                         separated.push_bind(tag);
                     }
                     separated.push_unseparated(") ");
@@ -388,6 +418,11 @@ impl Database {
         Ok(qb.build_query_as().fetch_all(&self.pool).await?)
     }
 
+    /// Creates a new collection with the given `title` and `media_ids`.
+    ///
+    /// # Errors
+    ///
+    /// Returns a database error if the insert fails.
     pub async fn add_collection(&self, title: &str, media_ids: &[i64]) -> Result<Collection> {
         let mut tx = self.pool.begin().await?;
 
@@ -417,6 +452,11 @@ impl Database {
         })
     }
 
+    /// Returns the collection with the given `id`.
+    ///
+    /// # Errors
+    ///
+    /// Returns [`Error::NotFound`] if no collection matches `id`, otherwise a database error.
     pub async fn get_collection(&self, id: i64) -> Result<Collection> {
         sqlx::query_as(
             "SELECT 
@@ -438,6 +478,11 @@ impl Database {
         })
     }
 
+    /// Returns all collections.
+    ///
+    /// # Errors
+    ///
+    /// Returns a database error if the query fails.
     pub async fn get_collections(&self) -> Result<Vec<Collection>> {
         Ok(sqlx::query_as(
             "SELECT 
@@ -453,6 +498,11 @@ impl Database {
         .await?)
     }
 
+    /// Updates the collection with the given `id`.
+    ///
+    /// # Errors
+    ///
+    /// Returns [`Error::NotFound`] if no collection matches `id`, otherwise a database error.
     pub async fn update_collection(&self, id: i64, update: UpdateCollection) -> Result<Collection> {
         let mut tx = self.pool.begin().await?;
 
@@ -495,6 +545,11 @@ impl Database {
         self.get_collection(id).await
     }
 
+    /// Removes the collection with the given `id`.
+    ///
+    /// # Errors
+    ///
+    /// Returns [`Error::NotFound`] if no collection matches `id`, otherwise a database error.
     pub async fn delete_collection(&self, id: i64) -> Result<()> {
         let result = sqlx::query("DELETE FROM collection WHERE id = ?")
             .bind(id)
@@ -506,7 +561,13 @@ impl Database {
             .ok_or(Error::NotFound(id))
     }
 
-    pub async fn existing_ids<S: AsRef<str>>(
+    /// Returns the set of `(provider, provider_id)` pairs from `pairs`
+    /// that already exist in the library.
+    ///
+    /// # Errors
+    ///
+    /// Returns a database error if the query fails.
+    pub async fn existing_ids<S: AsRef<str> + Sync>(
         &self,
         pairs: &[(S, i64)],
     ) -> Result<HashSet<(String, i64)>> {
@@ -536,6 +597,11 @@ impl Database {
             .collect())
     }
 
+    /// Returns all tags used in the library.
+    ///
+    /// # Errors
+    ///
+    /// Returns a database error if the query fails.
     pub async fn tags_list(&self) -> Result<Vec<String>> {
         Ok(sqlx::query_scalar("SELECT tag FROM media_tag")
             .fetch_all(&self.pool)

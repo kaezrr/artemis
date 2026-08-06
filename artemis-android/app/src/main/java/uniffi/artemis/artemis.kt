@@ -830,39 +830,7 @@ internal object IntegrityCheckingUniffiLib {
 
     external fun uniffi_artemis_checksum_method_application_update_collection(): Int
 
-    external fun uniffi_artemis_checksum_method_anilistprovider_kind(): Int
-
-    external fun uniffi_artemis_checksum_method_anilistprovider_name(): Int
-
-    external fun uniffi_artemis_checksum_method_anilistprovider_search(): Int
-
-    external fun uniffi_artemis_checksum_method_igdbprovider_kind(): Int
-
-    external fun uniffi_artemis_checksum_method_igdbprovider_name(): Int
-
-    external fun uniffi_artemis_checksum_method_igdbprovider_search(): Int
-
-    external fun uniffi_artemis_checksum_method_tmdbmovieprovider_kind(): Int
-
-    external fun uniffi_artemis_checksum_method_tmdbmovieprovider_name(): Int
-
-    external fun uniffi_artemis_checksum_method_tmdbmovieprovider_search(): Int
-
-    external fun uniffi_artemis_checksum_method_tmdbshowprovider_kind(): Int
-
-    external fun uniffi_artemis_checksum_method_tmdbshowprovider_name(): Int
-
-    external fun uniffi_artemis_checksum_method_tmdbshowprovider_search(): Int
-
     external fun uniffi_artemis_checksum_constructor_application_open(): Int
-
-    external fun uniffi_artemis_checksum_constructor_anilistprovider_new(): Int
-
-    external fun uniffi_artemis_checksum_constructor_igdbprovider_new(): Int
-
-    external fun uniffi_artemis_checksum_constructor_tmdbmovieprovider_new(): Int
-
-    external fun uniffi_artemis_checksum_constructor_tmdbshowprovider_new(): Int
 
     external fun ffi_artemis_uniffi_contract_version(): Int
 }
@@ -951,124 +919,6 @@ internal object UniffiLib {
         `ptr`: Long,
         `id`: Long,
         `update`: RustBuffer.ByValue,
-    ): Long
-
-    external fun uniffi_artemis_fn_clone_anilistprovider(
-        `handle`: Long,
-        uniffi_out_err: UniffiRustCallStatus,
-    ): Long
-
-    external fun uniffi_artemis_fn_free_anilistprovider(
-        `handle`: Long,
-        uniffi_out_err: UniffiRustCallStatus,
-    ): Unit
-
-    external fun uniffi_artemis_fn_constructor_anilistprovider_new(uniffi_out_err: UniffiRustCallStatus): Long
-
-    external fun uniffi_artemis_fn_method_anilistprovider_kind(
-        `ptr`: Long,
-        uniffi_out_err: UniffiRustCallStatus,
-    ): RustBuffer.ByValue
-
-    external fun uniffi_artemis_fn_method_anilistprovider_name(
-        `ptr`: Long,
-        uniffi_out_err: UniffiRustCallStatus,
-    ): RustBuffer.ByValue
-
-    external fun uniffi_artemis_fn_method_anilistprovider_search(
-        `ptr`: Long,
-        `query`: RustBuffer.ByValue,
-    ): Long
-
-    external fun uniffi_artemis_fn_clone_igdbprovider(
-        `handle`: Long,
-        uniffi_out_err: UniffiRustCallStatus,
-    ): Long
-
-    external fun uniffi_artemis_fn_free_igdbprovider(
-        `handle`: Long,
-        uniffi_out_err: UniffiRustCallStatus,
-    ): Unit
-
-    external fun uniffi_artemis_fn_constructor_igdbprovider_new(
-        `clientId`: RustBuffer.ByValue,
-        `clientSecret`: RustBuffer.ByValue,
-        uniffi_out_err: UniffiRustCallStatus,
-    ): Long
-
-    external fun uniffi_artemis_fn_method_igdbprovider_kind(
-        `ptr`: Long,
-        uniffi_out_err: UniffiRustCallStatus,
-    ): RustBuffer.ByValue
-
-    external fun uniffi_artemis_fn_method_igdbprovider_name(
-        `ptr`: Long,
-        uniffi_out_err: UniffiRustCallStatus,
-    ): RustBuffer.ByValue
-
-    external fun uniffi_artemis_fn_method_igdbprovider_search(
-        `ptr`: Long,
-        `query`: RustBuffer.ByValue,
-    ): Long
-
-    external fun uniffi_artemis_fn_clone_tmdbmovieprovider(
-        `handle`: Long,
-        uniffi_out_err: UniffiRustCallStatus,
-    ): Long
-
-    external fun uniffi_artemis_fn_free_tmdbmovieprovider(
-        `handle`: Long,
-        uniffi_out_err: UniffiRustCallStatus,
-    ): Unit
-
-    external fun uniffi_artemis_fn_constructor_tmdbmovieprovider_new(
-        `apiKey`: RustBuffer.ByValue,
-        uniffi_out_err: UniffiRustCallStatus,
-    ): Long
-
-    external fun uniffi_artemis_fn_method_tmdbmovieprovider_kind(
-        `ptr`: Long,
-        uniffi_out_err: UniffiRustCallStatus,
-    ): RustBuffer.ByValue
-
-    external fun uniffi_artemis_fn_method_tmdbmovieprovider_name(
-        `ptr`: Long,
-        uniffi_out_err: UniffiRustCallStatus,
-    ): RustBuffer.ByValue
-
-    external fun uniffi_artemis_fn_method_tmdbmovieprovider_search(
-        `ptr`: Long,
-        `query`: RustBuffer.ByValue,
-    ): Long
-
-    external fun uniffi_artemis_fn_clone_tmdbshowprovider(
-        `handle`: Long,
-        uniffi_out_err: UniffiRustCallStatus,
-    ): Long
-
-    external fun uniffi_artemis_fn_free_tmdbshowprovider(
-        `handle`: Long,
-        uniffi_out_err: UniffiRustCallStatus,
-    ): Unit
-
-    external fun uniffi_artemis_fn_constructor_tmdbshowprovider_new(
-        `apiKey`: RustBuffer.ByValue,
-        uniffi_out_err: UniffiRustCallStatus,
-    ): Long
-
-    external fun uniffi_artemis_fn_method_tmdbshowprovider_kind(
-        `ptr`: Long,
-        uniffi_out_err: UniffiRustCallStatus,
-    ): RustBuffer.ByValue
-
-    external fun uniffi_artemis_fn_method_tmdbshowprovider_name(
-        `ptr`: Long,
-        uniffi_out_err: UniffiRustCallStatus,
-    ): RustBuffer.ByValue
-
-    external fun uniffi_artemis_fn_method_tmdbshowprovider_search(
-        `ptr`: Long,
-        `query`: RustBuffer.ByValue,
     ): Long
 
     external fun ffi_artemis_rustbuffer_alloc(
@@ -1285,97 +1135,49 @@ private fun uniffiCheckContractApiVersion(lib: IntegrityCheckingUniffiLib) {
 
 @Suppress("UNUSED_PARAMETER")
 private fun uniffiCheckApiChecksums(lib: IntegrityCheckingUniffiLib) {
-    if (lib.uniffi_artemis_checksum_method_application_add() != 12055) {
+    if (lib.uniffi_artemis_checksum_method_application_add() != 11023) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_artemis_checksum_method_application_add_collection() != 50728) {
+    if (lib.uniffi_artemis_checksum_method_application_add_collection() != 12049) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_artemis_checksum_method_application_dashboard() != 50551) {
+    if (lib.uniffi_artemis_checksum_method_application_dashboard() != 38161) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_artemis_checksum_method_application_delete() != 46591) {
+    if (lib.uniffi_artemis_checksum_method_application_delete() != 44560) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_artemis_checksum_method_application_delete_collection() != 61032) {
+    if (lib.uniffi_artemis_checksum_method_application_delete_collection() != 30103) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_artemis_checksum_method_application_get() != 51897) {
+    if (lib.uniffi_artemis_checksum_method_application_get() != 53554) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_artemis_checksum_method_application_get_collection() != 56310) {
+    if (lib.uniffi_artemis_checksum_method_application_get_collection() != 36724) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_artemis_checksum_method_application_get_collections() != 29116) {
+    if (lib.uniffi_artemis_checksum_method_application_get_collections() != 53567) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_artemis_checksum_method_application_mark_search_results() != 62501) {
+    if (lib.uniffi_artemis_checksum_method_application_mark_search_results() != 48878) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_artemis_checksum_method_application_query() != 5321) {
+    if (lib.uniffi_artemis_checksum_method_application_query() != 8714) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_artemis_checksum_method_application_random() != 18548) {
+    if (lib.uniffi_artemis_checksum_method_application_random() != 56304) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_artemis_checksum_method_application_tags_list() != 16194) {
+    if (lib.uniffi_artemis_checksum_method_application_tags_list() != 62420) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_artemis_checksum_method_application_update() != 46964) {
+    if (lib.uniffi_artemis_checksum_method_application_update() != 8964) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_artemis_checksum_method_application_update_collection() != 47871) {
+    if (lib.uniffi_artemis_checksum_method_application_update_collection() != 40712) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
-    if (lib.uniffi_artemis_checksum_method_anilistprovider_kind() != 57544) {
-        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
-    }
-    if (lib.uniffi_artemis_checksum_method_anilistprovider_name() != 8620) {
-        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
-    }
-    if (lib.uniffi_artemis_checksum_method_anilistprovider_search() != 44968) {
-        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
-    }
-    if (lib.uniffi_artemis_checksum_method_igdbprovider_kind() != 42973) {
-        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
-    }
-    if (lib.uniffi_artemis_checksum_method_igdbprovider_name() != 45011) {
-        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
-    }
-    if (lib.uniffi_artemis_checksum_method_igdbprovider_search() != 30367) {
-        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
-    }
-    if (lib.uniffi_artemis_checksum_method_tmdbmovieprovider_kind() != 16349) {
-        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
-    }
-    if (lib.uniffi_artemis_checksum_method_tmdbmovieprovider_name() != 46537) {
-        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
-    }
-    if (lib.uniffi_artemis_checksum_method_tmdbmovieprovider_search() != 27380) {
-        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
-    }
-    if (lib.uniffi_artemis_checksum_method_tmdbshowprovider_kind() != 34565) {
-        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
-    }
-    if (lib.uniffi_artemis_checksum_method_tmdbshowprovider_name() != 42437) {
-        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
-    }
-    if (lib.uniffi_artemis_checksum_method_tmdbshowprovider_search() != 45898) {
-        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
-    }
-    if (lib.uniffi_artemis_checksum_constructor_application_open() != 13548) {
-        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
-    }
-    if (lib.uniffi_artemis_checksum_constructor_anilistprovider_new() != 38697) {
-        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
-    }
-    if (lib.uniffi_artemis_checksum_constructor_igdbprovider_new() != 20716) {
-        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
-    }
-    if (lib.uniffi_artemis_checksum_constructor_tmdbmovieprovider_new() != 28324) {
-        throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
-    }
-    if (lib.uniffi_artemis_checksum_constructor_tmdbshowprovider_new() != 14298) {
+    if (lib.uniffi_artemis_checksum_constructor_application_open() != 54046) {
         throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
     }
 }
@@ -1874,323 +1676,104 @@ public object FfiConverterDuration : FfiConverterRustBuffer<java.time.Duration> 
 // [1] https://stackoverflow.com/questions/24376768/can-java-finalize-an-object-when-it-is-still-in-scope/24380219
 //
 
-public interface AnilistProviderInterface {
-    fun `kind`(): MediaKind
-
-    fun `name`(): kotlin.String
-
-    suspend fun `search`(`query`: kotlin.String): List<SearchResult>
-
-    companion object
-}
-
-open class AnilistProvider :
-    Disposable,
-    AutoCloseable,
-    AnilistProviderInterface {
-    /**
-     * @suppress
-     */
-    @Suppress("UNUSED_PARAMETER")
-    constructor(withHandle: UniffiWithHandle, handle: Long) {
-        this.handle = handle
-        this.cleanable = UniffiLib.CLEANER.register(this, UniffiCleanAction(handle))
-    }
-
-    /**
-     * @suppress
-     *
-     * This constructor can be used to instantiate a fake object. Only used for tests. Any
-     * attempt to actually use an object constructed this way will fail as there is no
-     * connected Rust object.
-     */
-    @Suppress("UNUSED_PARAMETER")
-    constructor(noHandle: NoHandle) {
-        this.handle = 0
-        this.cleanable = null
-    }
-    constructor() :
-        this(
-            UniffiWithHandle,
-            uniffiRustCall { _status ->
-                UniffiLib.uniffi_artemis_fn_constructor_anilistprovider_new(_status)
-            },
-        )
-
-    protected val handle: Long
-    protected val cleanable: UniffiCleaner.Cleanable?
-
-    private val wasDestroyed = AtomicBoolean(false)
-    private val callCounter = AtomicLong(1)
-
-    /**
-     * Whether the current object has been destroyed and its reference is gone in the Rust side.
-     */
-    val uniffiIsDestroyed: Boolean get() = wasDestroyed.get()
-
-    override fun destroy() {
-        // Only allow a single call to this method.
-        // TODO: maybe we should log a warning if called more than once?
-        if (this.wasDestroyed.compareAndSet(false, true)) {
-            // This decrement always matches the initial count of 1 given at creation time.
-            if (this.callCounter.decrementAndGet() == 0L) {
-                cleanable?.clean()
-            }
-        }
-    }
-
-    @Synchronized
-    override fun close() {
-        this.destroy()
-    }
-
-    internal inline fun <R> callWithHandle(block: (handle: Long) -> R): R {
-        // Check and increment the call counter, to keep the object alive.
-        // This needs a compare-and-set retry loop in case of concurrent updates.
-        do {
-            val c = this.callCounter.get()
-            if (c == 0L) {
-                throw IllegalStateException("${this.javaClass.simpleName} object has already been destroyed")
-            }
-            if (c == Long.MAX_VALUE) {
-                throw IllegalStateException("${this.javaClass.simpleName} call counter would overflow")
-            }
-        } while (!this.callCounter.compareAndSet(c, c + 1L))
-        // Now we can safely do the method call without the handle being freed concurrently.
-        try {
-            return block(this.uniffiCloneHandle())
-        } finally {
-            // This decrement always matches the increment we performed above.
-            if (this.callCounter.decrementAndGet() == 0L) {
-                cleanable?.clean()
-            }
-        }
-    }
-
-    // Use a static inner class instead of a closure so as not to accidentally
-    // capture `this` as part of the cleanable's action.
-    private class UniffiCleanAction(
-        private val handle: Long,
-    ) : Runnable {
-        override fun run() {
-            if (handle == 0.toLong()) {
-                // Fake object created with `NoHandle`, don't try to free.
-                return
-            }
-            uniffiRustCall { status ->
-                UniffiLib.uniffi_artemis_fn_free_anilistprovider(handle, status)
-            }
-        }
-    }
-
-    /**
-     * @suppress
-     */
-    fun uniffiCloneHandle(): Long {
-        if (handle == 0.toLong()) {
-            throw InternalException("uniffiCloneHandle() called on NoHandle object")
-        }
-        return uniffiRustCall { status ->
-            UniffiLib.uniffi_artemis_fn_clone_anilistprovider(handle, status)
-        }
-    }
-
-    override fun `kind`(): MediaKind =
-        FfiConverterTypeMediaKind.lift(
-            callWithHandle {
-                uniffiRustCall { _status ->
-                    UniffiLib.uniffi_artemis_fn_method_anilistprovider_kind(
-                        it,
-                        _status,
-                    )
-                }
-            },
-        )
-
-    override fun `name`(): kotlin.String =
-        FfiConverterString.lift(
-            callWithHandle {
-                uniffiRustCall { _status ->
-                    UniffiLib.uniffi_artemis_fn_method_anilistprovider_name(
-                        it,
-                        _status,
-                    )
-                }
-            },
-        )
-
-    @Throws(Exception::class)
-    @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
-    override suspend fun `search`(`query`: kotlin.String): List<SearchResult> =
-        uniffiRustCallAsync(
-            callWithHandle { uniffiHandle ->
-                UniffiLib.uniffi_artemis_fn_method_anilistprovider_search(
-                    uniffiHandle,
-                    FfiConverterString.lower(`query`),
-                )
-            },
-            { future, callback, continuation -> UniffiLib.ffi_artemis_rust_future_poll_rust_buffer(future, callback, continuation) },
-            { future, continuation -> UniffiLib.ffi_artemis_rust_future_complete_rust_buffer(future, continuation) },
-            { future -> UniffiLib.ffi_artemis_rust_future_free_rust_buffer(future) },
-            // lift function
-            { FfiConverterSequenceTypeSearchResult.lift(it) },
-            // Error FFI converter
-            Exception.ErrorHandler,
-        )
-
-    /**
-     * @suppress
-     */
-    companion object
-}
-
 /**
- * @suppress
+ * An open library database.
+ *
+ * Created with [`Application::open`]; methods are safe to call from any
+ * thread.
  */
-public object FfiConverterTypeAnilistProvider : FfiConverter<AnilistProvider, Long> {
-    override fun lower(value: AnilistProvider): Long = value.uniffiCloneHandle()
-
-    override fun lift(value: Long): AnilistProvider = AnilistProvider(UniffiWithHandle, value)
-
-    override fun read(buf: ByteBuffer): AnilistProvider = lift(buf.getLong())
-
-    override fun allocationSize(value: AnilistProvider) = 8UL
-
-    override fun write(
-        value: AnilistProvider,
-        buf: ByteBuffer,
-    ) {
-        buf.putLong(lower(value))
-    }
-}
-
-// This template implements a class for working with a Rust struct via a handle
-// to the live Rust struct on the other side of the FFI.
-//
-// There's some subtlety here, because we have to be careful not to operate on a Rust
-// struct after it has been dropped, and because we must expose a public API for freeing
-// theq Kotlin wrapper object in lieu of reliable finalizers. The core requirements are:
-//
-//   * Each instance holds an opaque handle to the underlying Rust struct.
-//     Method calls need to read this handle from the object's state and pass it in to
-//     the Rust FFI.
-//
-//   * When an instance is no longer needed, its handle should be passed to a
-//     special destructor function provided by the Rust FFI, which will drop the
-//     underlying Rust struct.
-//
-//   * Given an instance, calling code is expected to call the special
-//     `destroy` method in order to free it after use, either by calling it explicitly
-//     or by using a higher-level helper like the `use` method. Failing to do so risks
-//     leaking the underlying Rust struct.
-//
-//   * We can't assume that calling code will do the right thing, and must be prepared
-//     to handle Kotlin method calls executing concurrently with or even after a call to
-//     `destroy`, and to handle multiple (possibly concurrent!) calls to `destroy`.
-//
-//   * We must never allow Rust code to operate on the underlying Rust struct after
-//     the destructor has been called, and must never call the destructor more than once.
-//     Doing so may trigger memory unsafety.
-//
-//   * To mitigate many of the risks of leaking memory and use-after-free unsafety, a `Cleaner`
-//     is implemented to call the destructor when the Kotlin object becomes unreachable.
-//     This is done in a background thread. This is not a panacea, and client code should be aware that
-//      1. the thread may starve if some there are objects that have poorly performing
-//     `drop` methods or do significant work in their `drop` methods.
-//      2. the thread is shared across the whole library. This can be tuned by using `android_cleaner = true`,
-//         or `android = true` in the [`kotlin` section of the `uniffi.toml` file](https://mozilla.github.io/uniffi-rs/kotlin/configuration.html).
-//
-// If we try to implement this with mutual exclusion on access to the handle, there is the
-// possibility of a race between a method call and a concurrent call to `destroy`:
-//
-//    * Thread A starts a method call, reads the value of the handle, but is interrupted
-//      before it can pass the handle over the FFI to Rust.
-//    * Thread B calls `destroy` and frees the underlying Rust struct.
-//    * Thread A resumes, passing the already-read handle value to Rust and triggering
-//      a use-after-free.
-//
-// One possible solution would be to use a `ReadWriteLock`, with each method call taking
-// a read lock (and thus allowed to run concurrently) and the special `destroy` method
-// taking a write lock (and thus blocking on live method calls). However, we aim not to
-// generate methods with any hidden blocking semantics, and a `destroy` method that might
-// block if called incorrectly seems to meet that bar.
-//
-// So, we achieve our goals by giving each instance an associated `AtomicLong` counter to track
-// the number of in-flight method calls, and an `AtomicBoolean` flag to indicate whether `destroy`
-// has been called. These are updated according to the following rules:
-//
-//    * The initial value of the counter is 1, indicating a live object with no in-flight calls.
-//      The initial value for the flag is false.
-//
-//    * At the start of each method call, we atomically check the counter.
-//      If it is 0 then the underlying Rust struct has already been destroyed and the call is aborted.
-//      If it is nonzero them we atomically increment it by 1 and proceed with the method call.
-//
-//    * At the end of each method call, we atomically decrement and check the counter.
-//      If it has reached zero then we destroy the underlying Rust struct.
-//
-//    * When `destroy` is called, we atomically flip the flag from false to true.
-//      If the flag was already true we silently fail.
-//      Otherwise we atomically decrement and check the counter.
-//      If it has reached zero then we destroy the underlying Rust struct.
-//
-// Astute readers may observe that this all sounds very similar to the way that Rust's `Arc<T>` works,
-// and indeed it is, with the addition of a flag to guard against multiple calls to `destroy`.
-//
-// The overall effect is that the underlying Rust struct is destroyed only when `destroy` has been
-// called *and* all in-flight method calls have completed, avoiding violating any of the expectations
-// of the underlying Rust code.
-//
-// This makes a cleaner a better alternative to _not_ calling `destroy()` as
-// and when the object is finished with, but the abstraction is not perfect: if the Rust object's `drop`
-// method is slow, and/or there are many objects to cleanup, and it's on a low end Android device, then the cleaner
-// thread may be starved, and the app will leak memory.
-//
-// In this case, `destroy`ing manually may be a better solution.
-//
-// The cleaner can live side by side with the manual calling of `destroy`. In the order of responsiveness, uniffi objects
-// with Rust peers are reclaimed:
-//
-// 1. By calling the `destroy` method of the object, which calls `rustObject.free()`. If that doesn't happen:
-// 2. When the object becomes unreachable, AND the Cleaner thread gets to call `rustObject.free()`. If the thread is starved then:
-// 3. The memory is reclaimed when the process terminates.
-//
-// [1] https://stackoverflow.com/questions/24376768/can-java-finalize-an-object-when-it-is-still-in-scope/24380219
-//
-
 public interface ApplicationInterface {
+    /**
+     * Adds a media entry to the library and returns the stored entry.
+     *
+     * Duplicates of the same `provider` + `provider_id` are rejected.
+     */
     suspend fun `add`(`searchResult`: SearchResult): LibraryEntry
 
+    /**
+     * Creates a collection with the given `title`, optionally pre-filling
+     * it with the given entry ids.
+     */
     suspend fun `addCollection`(
         `title`: kotlin.String,
         `mediaIds`: List<kotlin.Long>,
     ): Collection
 
+    /**
+     * Returns the dashboard snapshot: recent entries and per-kind counts.
+     */
     suspend fun `dashboard`(): Dashboard
 
+    /**
+     * Removes the entry with the given `id`.
+     *
+     * Fails with `NotFound` if no entry matches.
+     */
     suspend fun `delete`(`id`: kotlin.Long)
 
+    /**
+     * Removes the collection with the given `id`.
+     *
+     * Fails with `NotFound` if no collection matches.
+     */
     suspend fun `deleteCollection`(`id`: kotlin.Long)
 
+    /**
+     * Returns the entry with the given `id`.
+     *
+     * Fails with `NotFound` if no entry matches.
+     */
     suspend fun `get`(`id`: kotlin.Long): LibraryEntry
 
+    /**
+     * Returns the collection with the given `id`.
+     *
+     * Fails with `NotFound` if no collection matches.
+     */
     suspend fun `getCollection`(`id`: kotlin.Long): Collection
 
+    /**
+     * Returns all collections.
+     */
     suspend fun `getCollections`(): List<Collection>
 
+    /**
+     * Fills in each result's `in_library` flag based on what's already
+     * saved, returning the annotated results.
+     */
     suspend fun `markSearchResults`(`searchResults`: List<SearchResult>): List<SearchResult>
 
+    /**
+     * Queries the library, returning matching entries as [`LibraryItem`]s.
+     */
     suspend fun `query`(`query`: LibraryQuery): List<LibraryItem>
 
+    /**
+     * Returns a random entry matching `query`, or `None` if nothing matches.
+     */
     suspend fun `random`(`query`: LibraryQuery): LibraryItem?
 
+    /**
+     * Returns every tag used across the library, sorted.
+     */
     suspend fun `tagsList`(): List<kotlin.String>
 
+    /**
+     * Applies a partial [`UpdateEntry`] and returns the updated entry.
+     *
+     * Fails with `NotFound` if no entry matches.
+     */
     suspend fun `update`(
         `id`: kotlin.Long,
         `update`: UpdateEntry,
     ): LibraryEntry
 
+    /**
+     * Applies a partial [`UpdateCollection`] and returns the updated
+     * collection.
+     *
+     * Fails with `NotFound` if no collection matches.
+     */
     suspend fun `updateCollection`(
         `id`: kotlin.Long,
         `update`: UpdateCollection,
@@ -2199,6 +1782,12 @@ public interface ApplicationInterface {
     companion object
 }
 
+/**
+ * An open library database.
+ *
+ * Created with [`Application::open`]; methods are safe to call from any
+ * thread.
+ */
 open class Application :
     Disposable,
     AutoCloseable,
@@ -2303,6 +1892,11 @@ open class Application :
         }
     }
 
+    /**
+     * Adds a media entry to the library and returns the stored entry.
+     *
+     * Duplicates of the same `provider` + `provider_id` are rejected.
+     */
     @Throws(Exception::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `add`(`searchResult`: SearchResult): LibraryEntry =
@@ -2322,6 +1916,10 @@ open class Application :
             Exception.ErrorHandler,
         )
 
+    /**
+     * Creates a collection with the given `title`, optionally pre-filling
+     * it with the given entry ids.
+     */
     @Throws(Exception::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `addCollection`(
@@ -2345,6 +1943,9 @@ open class Application :
             Exception.ErrorHandler,
         )
 
+    /**
+     * Returns the dashboard snapshot: recent entries and per-kind counts.
+     */
     @Throws(Exception::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `dashboard`(): Dashboard =
@@ -2363,6 +1964,11 @@ open class Application :
             Exception.ErrorHandler,
         )
 
+    /**
+     * Removes the entry with the given `id`.
+     *
+     * Fails with `NotFound` if no entry matches.
+     */
     @Throws(Exception::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `delete`(`id`: kotlin.Long) =
@@ -2382,6 +1988,11 @@ open class Application :
             Exception.ErrorHandler,
         )
 
+    /**
+     * Removes the collection with the given `id`.
+     *
+     * Fails with `NotFound` if no collection matches.
+     */
     @Throws(Exception::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `deleteCollection`(`id`: kotlin.Long) =
@@ -2401,6 +2012,11 @@ open class Application :
             Exception.ErrorHandler,
         )
 
+    /**
+     * Returns the entry with the given `id`.
+     *
+     * Fails with `NotFound` if no entry matches.
+     */
     @Throws(Exception::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `get`(`id`: kotlin.Long): LibraryEntry =
@@ -2420,6 +2036,11 @@ open class Application :
             Exception.ErrorHandler,
         )
 
+    /**
+     * Returns the collection with the given `id`.
+     *
+     * Fails with `NotFound` if no collection matches.
+     */
     @Throws(Exception::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `getCollection`(`id`: kotlin.Long): Collection =
@@ -2439,6 +2060,9 @@ open class Application :
             Exception.ErrorHandler,
         )
 
+    /**
+     * Returns all collections.
+     */
     @Throws(Exception::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `getCollections`(): List<Collection> =
@@ -2457,6 +2081,10 @@ open class Application :
             Exception.ErrorHandler,
         )
 
+    /**
+     * Fills in each result's `in_library` flag based on what's already
+     * saved, returning the annotated results.
+     */
     @Throws(Exception::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `markSearchResults`(`searchResults`: List<SearchResult>): List<SearchResult> =
@@ -2476,6 +2104,9 @@ open class Application :
             Exception.ErrorHandler,
         )
 
+    /**
+     * Queries the library, returning matching entries as [`LibraryItem`]s.
+     */
     @Throws(Exception::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `query`(`query`: LibraryQuery): List<LibraryItem> =
@@ -2495,6 +2126,9 @@ open class Application :
             Exception.ErrorHandler,
         )
 
+    /**
+     * Returns a random entry matching `query`, or `None` if nothing matches.
+     */
     @Throws(Exception::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `random`(`query`: LibraryQuery): LibraryItem? =
@@ -2514,6 +2148,9 @@ open class Application :
             Exception.ErrorHandler,
         )
 
+    /**
+     * Returns every tag used across the library, sorted.
+     */
     @Throws(Exception::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `tagsList`(): List<kotlin.String> =
@@ -2532,6 +2169,11 @@ open class Application :
             Exception.ErrorHandler,
         )
 
+    /**
+     * Applies a partial [`UpdateEntry`] and returns the updated entry.
+     *
+     * Fails with `NotFound` if no entry matches.
+     */
     @Throws(Exception::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `update`(
@@ -2555,6 +2197,12 @@ open class Application :
             Exception.ErrorHandler,
         )
 
+    /**
+     * Applies a partial [`UpdateCollection`] and returns the updated
+     * collection.
+     *
+     * Fails with `NotFound` if no collection matches.
+     */
     @Throws(Exception::class)
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     override suspend fun `updateCollection`(
@@ -2579,6 +2227,11 @@ open class Application :
         )
 
     companion object {
+        /**
+         * Opens the library at `db_path`, creating the database if missing.
+         *
+         * Fails with a database or migration error if the file can't be opened.
+         */
         @Throws(Exception::class)
         @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
         suspend fun `open`(`dbPath`: kotlin.String): Application =
@@ -2615,862 +2268,11 @@ public object FfiConverterTypeApplication : FfiConverter<Application, Long> {
     }
 }
 
-// This template implements a class for working with a Rust struct via a handle
-// to the live Rust struct on the other side of the FFI.
-//
-// There's some subtlety here, because we have to be careful not to operate on a Rust
-// struct after it has been dropped, and because we must expose a public API for freeing
-// theq Kotlin wrapper object in lieu of reliable finalizers. The core requirements are:
-//
-//   * Each instance holds an opaque handle to the underlying Rust struct.
-//     Method calls need to read this handle from the object's state and pass it in to
-//     the Rust FFI.
-//
-//   * When an instance is no longer needed, its handle should be passed to a
-//     special destructor function provided by the Rust FFI, which will drop the
-//     underlying Rust struct.
-//
-//   * Given an instance, calling code is expected to call the special
-//     `destroy` method in order to free it after use, either by calling it explicitly
-//     or by using a higher-level helper like the `use` method. Failing to do so risks
-//     leaking the underlying Rust struct.
-//
-//   * We can't assume that calling code will do the right thing, and must be prepared
-//     to handle Kotlin method calls executing concurrently with or even after a call to
-//     `destroy`, and to handle multiple (possibly concurrent!) calls to `destroy`.
-//
-//   * We must never allow Rust code to operate on the underlying Rust struct after
-//     the destructor has been called, and must never call the destructor more than once.
-//     Doing so may trigger memory unsafety.
-//
-//   * To mitigate many of the risks of leaking memory and use-after-free unsafety, a `Cleaner`
-//     is implemented to call the destructor when the Kotlin object becomes unreachable.
-//     This is done in a background thread. This is not a panacea, and client code should be aware that
-//      1. the thread may starve if some there are objects that have poorly performing
-//     `drop` methods or do significant work in their `drop` methods.
-//      2. the thread is shared across the whole library. This can be tuned by using `android_cleaner = true`,
-//         or `android = true` in the [`kotlin` section of the `uniffi.toml` file](https://mozilla.github.io/uniffi-rs/kotlin/configuration.html).
-//
-// If we try to implement this with mutual exclusion on access to the handle, there is the
-// possibility of a race between a method call and a concurrent call to `destroy`:
-//
-//    * Thread A starts a method call, reads the value of the handle, but is interrupted
-//      before it can pass the handle over the FFI to Rust.
-//    * Thread B calls `destroy` and frees the underlying Rust struct.
-//    * Thread A resumes, passing the already-read handle value to Rust and triggering
-//      a use-after-free.
-//
-// One possible solution would be to use a `ReadWriteLock`, with each method call taking
-// a read lock (and thus allowed to run concurrently) and the special `destroy` method
-// taking a write lock (and thus blocking on live method calls). However, we aim not to
-// generate methods with any hidden blocking semantics, and a `destroy` method that might
-// block if called incorrectly seems to meet that bar.
-//
-// So, we achieve our goals by giving each instance an associated `AtomicLong` counter to track
-// the number of in-flight method calls, and an `AtomicBoolean` flag to indicate whether `destroy`
-// has been called. These are updated according to the following rules:
-//
-//    * The initial value of the counter is 1, indicating a live object with no in-flight calls.
-//      The initial value for the flag is false.
-//
-//    * At the start of each method call, we atomically check the counter.
-//      If it is 0 then the underlying Rust struct has already been destroyed and the call is aborted.
-//      If it is nonzero them we atomically increment it by 1 and proceed with the method call.
-//
-//    * At the end of each method call, we atomically decrement and check the counter.
-//      If it has reached zero then we destroy the underlying Rust struct.
-//
-//    * When `destroy` is called, we atomically flip the flag from false to true.
-//      If the flag was already true we silently fail.
-//      Otherwise we atomically decrement and check the counter.
-//      If it has reached zero then we destroy the underlying Rust struct.
-//
-// Astute readers may observe that this all sounds very similar to the way that Rust's `Arc<T>` works,
-// and indeed it is, with the addition of a flag to guard against multiple calls to `destroy`.
-//
-// The overall effect is that the underlying Rust struct is destroyed only when `destroy` has been
-// called *and* all in-flight method calls have completed, avoiding violating any of the expectations
-// of the underlying Rust code.
-//
-// This makes a cleaner a better alternative to _not_ calling `destroy()` as
-// and when the object is finished with, but the abstraction is not perfect: if the Rust object's `drop`
-// method is slow, and/or there are many objects to cleanup, and it's on a low end Android device, then the cleaner
-// thread may be starved, and the app will leak memory.
-//
-// In this case, `destroy`ing manually may be a better solution.
-//
-// The cleaner can live side by side with the manual calling of `destroy`. In the order of responsiveness, uniffi objects
-// with Rust peers are reclaimed:
-//
-// 1. By calling the `destroy` method of the object, which calls `rustObject.free()`. If that doesn't happen:
-// 2. When the object becomes unreachable, AND the Cleaner thread gets to call `rustObject.free()`. If the thread is starved then:
-// 3. The memory is reclaimed when the process terminates.
-//
-// [1] https://stackoverflow.com/questions/24376768/can-java-finalize-an-object-when-it-is-still-in-scope/24380219
-//
-
-public interface IgdbProviderInterface {
-    fun `kind`(): MediaKind
-
-    fun `name`(): kotlin.String
-
-    suspend fun `search`(`query`: kotlin.String): List<SearchResult>
-
-    companion object
-}
-
-open class IgdbProvider :
-    Disposable,
-    AutoCloseable,
-    IgdbProviderInterface {
-    /**
-     * @suppress
-     */
-    @Suppress("UNUSED_PARAMETER")
-    constructor(withHandle: UniffiWithHandle, handle: Long) {
-        this.handle = handle
-        this.cleanable = UniffiLib.CLEANER.register(this, UniffiCleanAction(handle))
-    }
-
-    /**
-     * @suppress
-     *
-     * This constructor can be used to instantiate a fake object. Only used for tests. Any
-     * attempt to actually use an object constructed this way will fail as there is no
-     * connected Rust object.
-     */
-    @Suppress("UNUSED_PARAMETER")
-    constructor(noHandle: NoHandle) {
-        this.handle = 0
-        this.cleanable = null
-    }
-    constructor(`clientId`: kotlin.String, `clientSecret`: kotlin.String) :
-        this(
-            UniffiWithHandle,
-            uniffiRustCall { _status ->
-                UniffiLib.uniffi_artemis_fn_constructor_igdbprovider_new(
-                    FfiConverterString.lower(`clientId`),
-                    FfiConverterString.lower(`clientSecret`),
-                    _status,
-                )
-            },
-        )
-
-    protected val handle: Long
-    protected val cleanable: UniffiCleaner.Cleanable?
-
-    private val wasDestroyed = AtomicBoolean(false)
-    private val callCounter = AtomicLong(1)
-
-    /**
-     * Whether the current object has been destroyed and its reference is gone in the Rust side.
-     */
-    val uniffiIsDestroyed: Boolean get() = wasDestroyed.get()
-
-    override fun destroy() {
-        // Only allow a single call to this method.
-        // TODO: maybe we should log a warning if called more than once?
-        if (this.wasDestroyed.compareAndSet(false, true)) {
-            // This decrement always matches the initial count of 1 given at creation time.
-            if (this.callCounter.decrementAndGet() == 0L) {
-                cleanable?.clean()
-            }
-        }
-    }
-
-    @Synchronized
-    override fun close() {
-        this.destroy()
-    }
-
-    internal inline fun <R> callWithHandle(block: (handle: Long) -> R): R {
-        // Check and increment the call counter, to keep the object alive.
-        // This needs a compare-and-set retry loop in case of concurrent updates.
-        do {
-            val c = this.callCounter.get()
-            if (c == 0L) {
-                throw IllegalStateException("${this.javaClass.simpleName} object has already been destroyed")
-            }
-            if (c == Long.MAX_VALUE) {
-                throw IllegalStateException("${this.javaClass.simpleName} call counter would overflow")
-            }
-        } while (!this.callCounter.compareAndSet(c, c + 1L))
-        // Now we can safely do the method call without the handle being freed concurrently.
-        try {
-            return block(this.uniffiCloneHandle())
-        } finally {
-            // This decrement always matches the increment we performed above.
-            if (this.callCounter.decrementAndGet() == 0L) {
-                cleanable?.clean()
-            }
-        }
-    }
-
-    // Use a static inner class instead of a closure so as not to accidentally
-    // capture `this` as part of the cleanable's action.
-    private class UniffiCleanAction(
-        private val handle: Long,
-    ) : Runnable {
-        override fun run() {
-            if (handle == 0.toLong()) {
-                // Fake object created with `NoHandle`, don't try to free.
-                return
-            }
-            uniffiRustCall { status ->
-                UniffiLib.uniffi_artemis_fn_free_igdbprovider(handle, status)
-            }
-        }
-    }
-
-    /**
-     * @suppress
-     */
-    fun uniffiCloneHandle(): Long {
-        if (handle == 0.toLong()) {
-            throw InternalException("uniffiCloneHandle() called on NoHandle object")
-        }
-        return uniffiRustCall { status ->
-            UniffiLib.uniffi_artemis_fn_clone_igdbprovider(handle, status)
-        }
-    }
-
-    override fun `kind`(): MediaKind =
-        FfiConverterTypeMediaKind.lift(
-            callWithHandle {
-                uniffiRustCall { _status ->
-                    UniffiLib.uniffi_artemis_fn_method_igdbprovider_kind(
-                        it,
-                        _status,
-                    )
-                }
-            },
-        )
-
-    override fun `name`(): kotlin.String =
-        FfiConverterString.lift(
-            callWithHandle {
-                uniffiRustCall { _status ->
-                    UniffiLib.uniffi_artemis_fn_method_igdbprovider_name(
-                        it,
-                        _status,
-                    )
-                }
-            },
-        )
-
-    @Throws(Exception::class)
-    @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
-    override suspend fun `search`(`query`: kotlin.String): List<SearchResult> =
-        uniffiRustCallAsync(
-            callWithHandle { uniffiHandle ->
-                UniffiLib.uniffi_artemis_fn_method_igdbprovider_search(
-                    uniffiHandle,
-                    FfiConverterString.lower(`query`),
-                )
-            },
-            { future, callback, continuation -> UniffiLib.ffi_artemis_rust_future_poll_rust_buffer(future, callback, continuation) },
-            { future, continuation -> UniffiLib.ffi_artemis_rust_future_complete_rust_buffer(future, continuation) },
-            { future -> UniffiLib.ffi_artemis_rust_future_free_rust_buffer(future) },
-            // lift function
-            { FfiConverterSequenceTypeSearchResult.lift(it) },
-            // Error FFI converter
-            Exception.ErrorHandler,
-        )
-
-    /**
-     * @suppress
-     */
-    companion object
-}
-
 /**
- * @suppress
+ * A named, user-curated group of library entries.
+ *
+ * `count` is the number of entries currently in the collection.
  */
-public object FfiConverterTypeIGDBProvider : FfiConverter<IgdbProvider, Long> {
-    override fun lower(value: IgdbProvider): Long = value.uniffiCloneHandle()
-
-    override fun lift(value: Long): IgdbProvider = IgdbProvider(UniffiWithHandle, value)
-
-    override fun read(buf: ByteBuffer): IgdbProvider = lift(buf.getLong())
-
-    override fun allocationSize(value: IgdbProvider) = 8UL
-
-    override fun write(
-        value: IgdbProvider,
-        buf: ByteBuffer,
-    ) {
-        buf.putLong(lower(value))
-    }
-}
-
-// This template implements a class for working with a Rust struct via a handle
-// to the live Rust struct on the other side of the FFI.
-//
-// There's some subtlety here, because we have to be careful not to operate on a Rust
-// struct after it has been dropped, and because we must expose a public API for freeing
-// theq Kotlin wrapper object in lieu of reliable finalizers. The core requirements are:
-//
-//   * Each instance holds an opaque handle to the underlying Rust struct.
-//     Method calls need to read this handle from the object's state and pass it in to
-//     the Rust FFI.
-//
-//   * When an instance is no longer needed, its handle should be passed to a
-//     special destructor function provided by the Rust FFI, which will drop the
-//     underlying Rust struct.
-//
-//   * Given an instance, calling code is expected to call the special
-//     `destroy` method in order to free it after use, either by calling it explicitly
-//     or by using a higher-level helper like the `use` method. Failing to do so risks
-//     leaking the underlying Rust struct.
-//
-//   * We can't assume that calling code will do the right thing, and must be prepared
-//     to handle Kotlin method calls executing concurrently with or even after a call to
-//     `destroy`, and to handle multiple (possibly concurrent!) calls to `destroy`.
-//
-//   * We must never allow Rust code to operate on the underlying Rust struct after
-//     the destructor has been called, and must never call the destructor more than once.
-//     Doing so may trigger memory unsafety.
-//
-//   * To mitigate many of the risks of leaking memory and use-after-free unsafety, a `Cleaner`
-//     is implemented to call the destructor when the Kotlin object becomes unreachable.
-//     This is done in a background thread. This is not a panacea, and client code should be aware that
-//      1. the thread may starve if some there are objects that have poorly performing
-//     `drop` methods or do significant work in their `drop` methods.
-//      2. the thread is shared across the whole library. This can be tuned by using `android_cleaner = true`,
-//         or `android = true` in the [`kotlin` section of the `uniffi.toml` file](https://mozilla.github.io/uniffi-rs/kotlin/configuration.html).
-//
-// If we try to implement this with mutual exclusion on access to the handle, there is the
-// possibility of a race between a method call and a concurrent call to `destroy`:
-//
-//    * Thread A starts a method call, reads the value of the handle, but is interrupted
-//      before it can pass the handle over the FFI to Rust.
-//    * Thread B calls `destroy` and frees the underlying Rust struct.
-//    * Thread A resumes, passing the already-read handle value to Rust and triggering
-//      a use-after-free.
-//
-// One possible solution would be to use a `ReadWriteLock`, with each method call taking
-// a read lock (and thus allowed to run concurrently) and the special `destroy` method
-// taking a write lock (and thus blocking on live method calls). However, we aim not to
-// generate methods with any hidden blocking semantics, and a `destroy` method that might
-// block if called incorrectly seems to meet that bar.
-//
-// So, we achieve our goals by giving each instance an associated `AtomicLong` counter to track
-// the number of in-flight method calls, and an `AtomicBoolean` flag to indicate whether `destroy`
-// has been called. These are updated according to the following rules:
-//
-//    * The initial value of the counter is 1, indicating a live object with no in-flight calls.
-//      The initial value for the flag is false.
-//
-//    * At the start of each method call, we atomically check the counter.
-//      If it is 0 then the underlying Rust struct has already been destroyed and the call is aborted.
-//      If it is nonzero them we atomically increment it by 1 and proceed with the method call.
-//
-//    * At the end of each method call, we atomically decrement and check the counter.
-//      If it has reached zero then we destroy the underlying Rust struct.
-//
-//    * When `destroy` is called, we atomically flip the flag from false to true.
-//      If the flag was already true we silently fail.
-//      Otherwise we atomically decrement and check the counter.
-//      If it has reached zero then we destroy the underlying Rust struct.
-//
-// Astute readers may observe that this all sounds very similar to the way that Rust's `Arc<T>` works,
-// and indeed it is, with the addition of a flag to guard against multiple calls to `destroy`.
-//
-// The overall effect is that the underlying Rust struct is destroyed only when `destroy` has been
-// called *and* all in-flight method calls have completed, avoiding violating any of the expectations
-// of the underlying Rust code.
-//
-// This makes a cleaner a better alternative to _not_ calling `destroy()` as
-// and when the object is finished with, but the abstraction is not perfect: if the Rust object's `drop`
-// method is slow, and/or there are many objects to cleanup, and it's on a low end Android device, then the cleaner
-// thread may be starved, and the app will leak memory.
-//
-// In this case, `destroy`ing manually may be a better solution.
-//
-// The cleaner can live side by side with the manual calling of `destroy`. In the order of responsiveness, uniffi objects
-// with Rust peers are reclaimed:
-//
-// 1. By calling the `destroy` method of the object, which calls `rustObject.free()`. If that doesn't happen:
-// 2. When the object becomes unreachable, AND the Cleaner thread gets to call `rustObject.free()`. If the thread is starved then:
-// 3. The memory is reclaimed when the process terminates.
-//
-// [1] https://stackoverflow.com/questions/24376768/can-java-finalize-an-object-when-it-is-still-in-scope/24380219
-//
-
-public interface TmdbMovieProviderInterface {
-    fun `kind`(): MediaKind
-
-    fun `name`(): kotlin.String
-
-    suspend fun `search`(`query`: kotlin.String): List<SearchResult>
-
-    companion object
-}
-
-open class TmdbMovieProvider :
-    Disposable,
-    AutoCloseable,
-    TmdbMovieProviderInterface {
-    /**
-     * @suppress
-     */
-    @Suppress("UNUSED_PARAMETER")
-    constructor(withHandle: UniffiWithHandle, handle: Long) {
-        this.handle = handle
-        this.cleanable = UniffiLib.CLEANER.register(this, UniffiCleanAction(handle))
-    }
-
-    /**
-     * @suppress
-     *
-     * This constructor can be used to instantiate a fake object. Only used for tests. Any
-     * attempt to actually use an object constructed this way will fail as there is no
-     * connected Rust object.
-     */
-    @Suppress("UNUSED_PARAMETER")
-    constructor(noHandle: NoHandle) {
-        this.handle = 0
-        this.cleanable = null
-    }
-    constructor(`apiKey`: kotlin.String) :
-        this(
-            UniffiWithHandle,
-            uniffiRustCall { _status ->
-                UniffiLib.uniffi_artemis_fn_constructor_tmdbmovieprovider_new(FfiConverterString.lower(`apiKey`), _status)
-            },
-        )
-
-    protected val handle: Long
-    protected val cleanable: UniffiCleaner.Cleanable?
-
-    private val wasDestroyed = AtomicBoolean(false)
-    private val callCounter = AtomicLong(1)
-
-    /**
-     * Whether the current object has been destroyed and its reference is gone in the Rust side.
-     */
-    val uniffiIsDestroyed: Boolean get() = wasDestroyed.get()
-
-    override fun destroy() {
-        // Only allow a single call to this method.
-        // TODO: maybe we should log a warning if called more than once?
-        if (this.wasDestroyed.compareAndSet(false, true)) {
-            // This decrement always matches the initial count of 1 given at creation time.
-            if (this.callCounter.decrementAndGet() == 0L) {
-                cleanable?.clean()
-            }
-        }
-    }
-
-    @Synchronized
-    override fun close() {
-        this.destroy()
-    }
-
-    internal inline fun <R> callWithHandle(block: (handle: Long) -> R): R {
-        // Check and increment the call counter, to keep the object alive.
-        // This needs a compare-and-set retry loop in case of concurrent updates.
-        do {
-            val c = this.callCounter.get()
-            if (c == 0L) {
-                throw IllegalStateException("${this.javaClass.simpleName} object has already been destroyed")
-            }
-            if (c == Long.MAX_VALUE) {
-                throw IllegalStateException("${this.javaClass.simpleName} call counter would overflow")
-            }
-        } while (!this.callCounter.compareAndSet(c, c + 1L))
-        // Now we can safely do the method call without the handle being freed concurrently.
-        try {
-            return block(this.uniffiCloneHandle())
-        } finally {
-            // This decrement always matches the increment we performed above.
-            if (this.callCounter.decrementAndGet() == 0L) {
-                cleanable?.clean()
-            }
-        }
-    }
-
-    // Use a static inner class instead of a closure so as not to accidentally
-    // capture `this` as part of the cleanable's action.
-    private class UniffiCleanAction(
-        private val handle: Long,
-    ) : Runnable {
-        override fun run() {
-            if (handle == 0.toLong()) {
-                // Fake object created with `NoHandle`, don't try to free.
-                return
-            }
-            uniffiRustCall { status ->
-                UniffiLib.uniffi_artemis_fn_free_tmdbmovieprovider(handle, status)
-            }
-        }
-    }
-
-    /**
-     * @suppress
-     */
-    fun uniffiCloneHandle(): Long {
-        if (handle == 0.toLong()) {
-            throw InternalException("uniffiCloneHandle() called on NoHandle object")
-        }
-        return uniffiRustCall { status ->
-            UniffiLib.uniffi_artemis_fn_clone_tmdbmovieprovider(handle, status)
-        }
-    }
-
-    override fun `kind`(): MediaKind =
-        FfiConverterTypeMediaKind.lift(
-            callWithHandle {
-                uniffiRustCall { _status ->
-                    UniffiLib.uniffi_artemis_fn_method_tmdbmovieprovider_kind(
-                        it,
-                        _status,
-                    )
-                }
-            },
-        )
-
-    override fun `name`(): kotlin.String =
-        FfiConverterString.lift(
-            callWithHandle {
-                uniffiRustCall { _status ->
-                    UniffiLib.uniffi_artemis_fn_method_tmdbmovieprovider_name(
-                        it,
-                        _status,
-                    )
-                }
-            },
-        )
-
-    @Throws(Exception::class)
-    @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
-    override suspend fun `search`(`query`: kotlin.String): List<SearchResult> =
-        uniffiRustCallAsync(
-            callWithHandle { uniffiHandle ->
-                UniffiLib.uniffi_artemis_fn_method_tmdbmovieprovider_search(
-                    uniffiHandle,
-                    FfiConverterString.lower(`query`),
-                )
-            },
-            { future, callback, continuation -> UniffiLib.ffi_artemis_rust_future_poll_rust_buffer(future, callback, continuation) },
-            { future, continuation -> UniffiLib.ffi_artemis_rust_future_complete_rust_buffer(future, continuation) },
-            { future -> UniffiLib.ffi_artemis_rust_future_free_rust_buffer(future) },
-            // lift function
-            { FfiConverterSequenceTypeSearchResult.lift(it) },
-            // Error FFI converter
-            Exception.ErrorHandler,
-        )
-
-    /**
-     * @suppress
-     */
-    companion object
-}
-
-/**
- * @suppress
- */
-public object FfiConverterTypeTMDBMovieProvider : FfiConverter<TmdbMovieProvider, Long> {
-    override fun lower(value: TmdbMovieProvider): Long = value.uniffiCloneHandle()
-
-    override fun lift(value: Long): TmdbMovieProvider = TmdbMovieProvider(UniffiWithHandle, value)
-
-    override fun read(buf: ByteBuffer): TmdbMovieProvider = lift(buf.getLong())
-
-    override fun allocationSize(value: TmdbMovieProvider) = 8UL
-
-    override fun write(
-        value: TmdbMovieProvider,
-        buf: ByteBuffer,
-    ) {
-        buf.putLong(lower(value))
-    }
-}
-
-// This template implements a class for working with a Rust struct via a handle
-// to the live Rust struct on the other side of the FFI.
-//
-// There's some subtlety here, because we have to be careful not to operate on a Rust
-// struct after it has been dropped, and because we must expose a public API for freeing
-// theq Kotlin wrapper object in lieu of reliable finalizers. The core requirements are:
-//
-//   * Each instance holds an opaque handle to the underlying Rust struct.
-//     Method calls need to read this handle from the object's state and pass it in to
-//     the Rust FFI.
-//
-//   * When an instance is no longer needed, its handle should be passed to a
-//     special destructor function provided by the Rust FFI, which will drop the
-//     underlying Rust struct.
-//
-//   * Given an instance, calling code is expected to call the special
-//     `destroy` method in order to free it after use, either by calling it explicitly
-//     or by using a higher-level helper like the `use` method. Failing to do so risks
-//     leaking the underlying Rust struct.
-//
-//   * We can't assume that calling code will do the right thing, and must be prepared
-//     to handle Kotlin method calls executing concurrently with or even after a call to
-//     `destroy`, and to handle multiple (possibly concurrent!) calls to `destroy`.
-//
-//   * We must never allow Rust code to operate on the underlying Rust struct after
-//     the destructor has been called, and must never call the destructor more than once.
-//     Doing so may trigger memory unsafety.
-//
-//   * To mitigate many of the risks of leaking memory and use-after-free unsafety, a `Cleaner`
-//     is implemented to call the destructor when the Kotlin object becomes unreachable.
-//     This is done in a background thread. This is not a panacea, and client code should be aware that
-//      1. the thread may starve if some there are objects that have poorly performing
-//     `drop` methods or do significant work in their `drop` methods.
-//      2. the thread is shared across the whole library. This can be tuned by using `android_cleaner = true`,
-//         or `android = true` in the [`kotlin` section of the `uniffi.toml` file](https://mozilla.github.io/uniffi-rs/kotlin/configuration.html).
-//
-// If we try to implement this with mutual exclusion on access to the handle, there is the
-// possibility of a race between a method call and a concurrent call to `destroy`:
-//
-//    * Thread A starts a method call, reads the value of the handle, but is interrupted
-//      before it can pass the handle over the FFI to Rust.
-//    * Thread B calls `destroy` and frees the underlying Rust struct.
-//    * Thread A resumes, passing the already-read handle value to Rust and triggering
-//      a use-after-free.
-//
-// One possible solution would be to use a `ReadWriteLock`, with each method call taking
-// a read lock (and thus allowed to run concurrently) and the special `destroy` method
-// taking a write lock (and thus blocking on live method calls). However, we aim not to
-// generate methods with any hidden blocking semantics, and a `destroy` method that might
-// block if called incorrectly seems to meet that bar.
-//
-// So, we achieve our goals by giving each instance an associated `AtomicLong` counter to track
-// the number of in-flight method calls, and an `AtomicBoolean` flag to indicate whether `destroy`
-// has been called. These are updated according to the following rules:
-//
-//    * The initial value of the counter is 1, indicating a live object with no in-flight calls.
-//      The initial value for the flag is false.
-//
-//    * At the start of each method call, we atomically check the counter.
-//      If it is 0 then the underlying Rust struct has already been destroyed and the call is aborted.
-//      If it is nonzero them we atomically increment it by 1 and proceed with the method call.
-//
-//    * At the end of each method call, we atomically decrement and check the counter.
-//      If it has reached zero then we destroy the underlying Rust struct.
-//
-//    * When `destroy` is called, we atomically flip the flag from false to true.
-//      If the flag was already true we silently fail.
-//      Otherwise we atomically decrement and check the counter.
-//      If it has reached zero then we destroy the underlying Rust struct.
-//
-// Astute readers may observe that this all sounds very similar to the way that Rust's `Arc<T>` works,
-// and indeed it is, with the addition of a flag to guard against multiple calls to `destroy`.
-//
-// The overall effect is that the underlying Rust struct is destroyed only when `destroy` has been
-// called *and* all in-flight method calls have completed, avoiding violating any of the expectations
-// of the underlying Rust code.
-//
-// This makes a cleaner a better alternative to _not_ calling `destroy()` as
-// and when the object is finished with, but the abstraction is not perfect: if the Rust object's `drop`
-// method is slow, and/or there are many objects to cleanup, and it's on a low end Android device, then the cleaner
-// thread may be starved, and the app will leak memory.
-//
-// In this case, `destroy`ing manually may be a better solution.
-//
-// The cleaner can live side by side with the manual calling of `destroy`. In the order of responsiveness, uniffi objects
-// with Rust peers are reclaimed:
-//
-// 1. By calling the `destroy` method of the object, which calls `rustObject.free()`. If that doesn't happen:
-// 2. When the object becomes unreachable, AND the Cleaner thread gets to call `rustObject.free()`. If the thread is starved then:
-// 3. The memory is reclaimed when the process terminates.
-//
-// [1] https://stackoverflow.com/questions/24376768/can-java-finalize-an-object-when-it-is-still-in-scope/24380219
-//
-
-public interface TmdbShowProviderInterface {
-    fun `kind`(): MediaKind
-
-    fun `name`(): kotlin.String
-
-    suspend fun `search`(`query`: kotlin.String): List<SearchResult>
-
-    companion object
-}
-
-open class TmdbShowProvider :
-    Disposable,
-    AutoCloseable,
-    TmdbShowProviderInterface {
-    /**
-     * @suppress
-     */
-    @Suppress("UNUSED_PARAMETER")
-    constructor(withHandle: UniffiWithHandle, handle: Long) {
-        this.handle = handle
-        this.cleanable = UniffiLib.CLEANER.register(this, UniffiCleanAction(handle))
-    }
-
-    /**
-     * @suppress
-     *
-     * This constructor can be used to instantiate a fake object. Only used for tests. Any
-     * attempt to actually use an object constructed this way will fail as there is no
-     * connected Rust object.
-     */
-    @Suppress("UNUSED_PARAMETER")
-    constructor(noHandle: NoHandle) {
-        this.handle = 0
-        this.cleanable = null
-    }
-    constructor(`apiKey`: kotlin.String) :
-        this(
-            UniffiWithHandle,
-            uniffiRustCall { _status ->
-                UniffiLib.uniffi_artemis_fn_constructor_tmdbshowprovider_new(FfiConverterString.lower(`apiKey`), _status)
-            },
-        )
-
-    protected val handle: Long
-    protected val cleanable: UniffiCleaner.Cleanable?
-
-    private val wasDestroyed = AtomicBoolean(false)
-    private val callCounter = AtomicLong(1)
-
-    /**
-     * Whether the current object has been destroyed and its reference is gone in the Rust side.
-     */
-    val uniffiIsDestroyed: Boolean get() = wasDestroyed.get()
-
-    override fun destroy() {
-        // Only allow a single call to this method.
-        // TODO: maybe we should log a warning if called more than once?
-        if (this.wasDestroyed.compareAndSet(false, true)) {
-            // This decrement always matches the initial count of 1 given at creation time.
-            if (this.callCounter.decrementAndGet() == 0L) {
-                cleanable?.clean()
-            }
-        }
-    }
-
-    @Synchronized
-    override fun close() {
-        this.destroy()
-    }
-
-    internal inline fun <R> callWithHandle(block: (handle: Long) -> R): R {
-        // Check and increment the call counter, to keep the object alive.
-        // This needs a compare-and-set retry loop in case of concurrent updates.
-        do {
-            val c = this.callCounter.get()
-            if (c == 0L) {
-                throw IllegalStateException("${this.javaClass.simpleName} object has already been destroyed")
-            }
-            if (c == Long.MAX_VALUE) {
-                throw IllegalStateException("${this.javaClass.simpleName} call counter would overflow")
-            }
-        } while (!this.callCounter.compareAndSet(c, c + 1L))
-        // Now we can safely do the method call without the handle being freed concurrently.
-        try {
-            return block(this.uniffiCloneHandle())
-        } finally {
-            // This decrement always matches the increment we performed above.
-            if (this.callCounter.decrementAndGet() == 0L) {
-                cleanable?.clean()
-            }
-        }
-    }
-
-    // Use a static inner class instead of a closure so as not to accidentally
-    // capture `this` as part of the cleanable's action.
-    private class UniffiCleanAction(
-        private val handle: Long,
-    ) : Runnable {
-        override fun run() {
-            if (handle == 0.toLong()) {
-                // Fake object created with `NoHandle`, don't try to free.
-                return
-            }
-            uniffiRustCall { status ->
-                UniffiLib.uniffi_artemis_fn_free_tmdbshowprovider(handle, status)
-            }
-        }
-    }
-
-    /**
-     * @suppress
-     */
-    fun uniffiCloneHandle(): Long {
-        if (handle == 0.toLong()) {
-            throw InternalException("uniffiCloneHandle() called on NoHandle object")
-        }
-        return uniffiRustCall { status ->
-            UniffiLib.uniffi_artemis_fn_clone_tmdbshowprovider(handle, status)
-        }
-    }
-
-    override fun `kind`(): MediaKind =
-        FfiConverterTypeMediaKind.lift(
-            callWithHandle {
-                uniffiRustCall { _status ->
-                    UniffiLib.uniffi_artemis_fn_method_tmdbshowprovider_kind(
-                        it,
-                        _status,
-                    )
-                }
-            },
-        )
-
-    override fun `name`(): kotlin.String =
-        FfiConverterString.lift(
-            callWithHandle {
-                uniffiRustCall { _status ->
-                    UniffiLib.uniffi_artemis_fn_method_tmdbshowprovider_name(
-                        it,
-                        _status,
-                    )
-                }
-            },
-        )
-
-    @Throws(Exception::class)
-    @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
-    override suspend fun `search`(`query`: kotlin.String): List<SearchResult> =
-        uniffiRustCallAsync(
-            callWithHandle { uniffiHandle ->
-                UniffiLib.uniffi_artemis_fn_method_tmdbshowprovider_search(
-                    uniffiHandle,
-                    FfiConverterString.lower(`query`),
-                )
-            },
-            { future, callback, continuation -> UniffiLib.ffi_artemis_rust_future_poll_rust_buffer(future, callback, continuation) },
-            { future, continuation -> UniffiLib.ffi_artemis_rust_future_complete_rust_buffer(future, continuation) },
-            { future -> UniffiLib.ffi_artemis_rust_future_free_rust_buffer(future) },
-            // lift function
-            { FfiConverterSequenceTypeSearchResult.lift(it) },
-            // Error FFI converter
-            Exception.ErrorHandler,
-        )
-
-    /**
-     * @suppress
-     */
-    companion object
-}
-
-/**
- * @suppress
- */
-public object FfiConverterTypeTMDBShowProvider : FfiConverter<TmdbShowProvider, Long> {
-    override fun lower(value: TmdbShowProvider): Long = value.uniffiCloneHandle()
-
-    override fun lift(value: Long): TmdbShowProvider = TmdbShowProvider(UniffiWithHandle, value)
-
-    override fun read(buf: ByteBuffer): TmdbShowProvider = lift(buf.getLong())
-
-    override fun allocationSize(value: TmdbShowProvider) = 8UL
-
-    override fun write(
-        value: TmdbShowProvider,
-        buf: ByteBuffer,
-    ) {
-        buf.putLong(lower(value))
-    }
-}
-
 data class Collection(
     var `id`: kotlin.Long,
     var `title`: kotlin.String,
@@ -3507,6 +2309,10 @@ public object FfiConverterTypeCollection : FfiConverterRustBuffer<Collection> {
     }
 }
 
+/**
+ * Home-screen snapshot: the most recently modified entries and one count
+ * per media kind.
+ */
 data class Dashboard(
     var `recent`: List<LibraryItem>,
     var `mediaCounts`: Map<MediaKind, kotlin.UInt>,
@@ -3539,6 +2345,12 @@ public object FfiConverterTypeDashboard : FfiConverterRustBuffer<Dashboard> {
     }
 }
 
+/**
+ * A full library entry: the media, its source metadata, and the user's
+ * score, notes, and progress status.
+ *
+ * `rating` is the user's personal score, unset until they assign one.
+ */
 data class LibraryEntry(
     var `id`: kotlin.Long,
     var `media`: Media,
@@ -3595,6 +2407,10 @@ public object FfiConverterTypeLibraryEntry : FfiConverterRustBuffer<LibraryEntry
     }
 }
 
+/**
+ * A lightweight entry (id, kind, title, cover, status, rating) for
+ * grid/overview displays, without the full metadata.
+ */
 data class LibraryItem(
     var `id`: kotlin.Long,
     var `kind`: MediaKind,
@@ -3643,7 +2459,17 @@ public object FfiConverterTypeLibraryItem : FfiConverterRustBuffer<LibraryItem> 
     }
 }
 
+/**
+ * Filters, sorting, and pagination for browsing the library.
+ *
+ * Defaults to `sort_by: SortBy::Title`, `order: SortOrder::Ascending`.
+ * When `kind` or `status` is set, only entries of that kind/status match;
+ * `tag_filter` narrows by tags; `limit`/`offset` paginate results.
+ */
 data class LibraryQuery(
+    /**
+     * Free-text search across titles and metadata.
+     */
     var `search`: kotlin.String?,
     var `kind`: MediaKind?,
     var `sortBy`: SortBy,
@@ -3652,6 +2478,9 @@ data class LibraryQuery(
     var `tagFilter`: TagFilter?,
     var `limit`: kotlin.UInt?,
     var `offset`: kotlin.UInt?,
+    /**
+     * Restrict results to entries in this collection.
+     */
     var `collectionId`: kotlin.Long?,
 ) {
     companion object
@@ -3703,6 +2532,11 @@ public object FfiConverterTypeLibraryQuery : FfiConverterRustBuffer<LibraryQuery
     }
 }
 
+/**
+ * Metadata as reported by the source provider.
+ *
+ * A media item is uniquely identified by `provider` + `provider_id`.
+ */
 data class ProviderMetadata(
     var `provider`: kotlin.String,
     var `providerId`: kotlin.Long,
@@ -3759,6 +2593,11 @@ public object FfiConverterTypeProviderMetadata : FfiConverterRustBuffer<Provider
     }
 }
 
+/**
+ * A provider search hit, flagged with whether it is already saved.
+ *
+ * `in_library` is filled in by `Application::mark_search_results`.
+ */
 data class SearchResult(
     var `media`: Media,
     var `metadata`: ProviderMetadata,
@@ -3795,6 +2634,10 @@ public object FfiConverterTypeSearchResult : FfiConverterRustBuffer<SearchResult
     }
 }
 
+/**
+ * A partial update to a collection: optionally rename it and/or apply a
+ * list of member actions.
+ */
 data class UpdateCollection(
     var `title`: kotlin.String?,
     var `updateEntries`: List<CollectionAction>,
@@ -3827,6 +2670,17 @@ public object FfiConverterTypeUpdateCollection : FfiConverterRustBuffer<UpdateCo
     }
 }
 
+/**
+ * A partial update to a library entry.
+ *
+ * The outer `Option` distinguishes "set or clear" from "leave unchanged":
+ *
+ * - `None` — leave the current value as-is;
+ * - `Some(None)` — clear the field;
+ * - `Some(Some(v))` — set it to `v`.
+ *
+ * `playtime` only applies to `Game` entries.
+ */
 data class UpdateEntry(
     var `status`: Status?,
     var `notes`: kotlin.String??,
@@ -3867,6 +2721,9 @@ public object FfiConverterTypeUpdateEntry : FfiConverterRustBuffer<UpdateEntry> 
     }
 }
 
+/**
+ * Adds or removes a member entry from a collection.
+ */
 sealed class CollectionAction {
     data class Add(
         val v1: kotlin.Long,
@@ -3945,6 +2802,12 @@ public object FfiConverterTypeCollectionAction : FfiConverterRustBuffer<Collecti
     }
 }
 
+/**
+ * Errors surfaced across the FFI boundary.
+ *
+ * `NotFound` is returned when an entry or collection id doesn't exist;
+ * the remaining variants cover database, migration, and timestamp failures.
+ */
 sealed class Exception(
     message: String,
 ) : kotlin.Exception(message) {
@@ -3964,10 +2827,6 @@ sealed class Exception(
         message: String,
     ) : Exception(message)
 
-    class ProviderException(
-        message: String,
-    ) : Exception(message)
-
     companion object ErrorHandler : UniffiRustCallStatusErrorHandler<Exception> {
         override fun lift(error_buf: RustBuffer.ByValue): Exception = FfiConverterTypeError.lift(error_buf)
     }
@@ -3983,7 +2842,6 @@ public object FfiConverterTypeError : FfiConverterRustBuffer<Exception> {
             2 -> Exception.MigrationException(FfiConverterString.read(buf))
             3 -> Exception.NotFound(FfiConverterString.read(buf))
             4 -> Exception.TimeStampConversionException(FfiConverterString.read(buf))
-            5 -> Exception.ProviderException(FfiConverterString.read(buf))
             else -> throw RuntimeException("invalid error enum value, something is very wrong!!")
         }
 
@@ -4013,15 +2871,13 @@ public object FfiConverterTypeError : FfiConverterRustBuffer<Exception> {
                 buf.putInt(4)
                 Unit
             }
-
-            is Exception.ProviderException -> {
-                buf.putInt(5)
-                Unit
-            }
         }.let { /* this makes the `when` an expression, which ensures it is exhaustive */ }
     }
 }
 
+/**
+ * A media entry with kind-specific detail fields.
+ */
 sealed class Media {
     data class Anime(
         val `studio`: kotlin.String?,
@@ -4168,6 +3024,10 @@ public object FfiConverterTypeMedia : FfiConverterRustBuffer<Media> {
     }
 }
 
+/**
+ * The kind of a [`Media`] entry, without the kind-specific data.
+ */
+
 enum class MediaKind {
     ANIME,
     MOVIE,
@@ -4198,6 +3058,10 @@ public object FfiConverterTypeMediaKind : FfiConverterRustBuffer<MediaKind> {
         buf.putInt(value.ordinal + 1)
     }
 }
+
+/**
+ * Sort key for queries. `Title` is the default.
+ */
 
 enum class SortBy {
     TITLE,
@@ -4230,6 +3094,10 @@ public object FfiConverterTypeSortBy : FfiConverterRustBuffer<SortBy> {
     }
 }
 
+/**
+ * Sort direction for queries. `Ascending` is the default.
+ */
+
 enum class SortOrder {
     ASCENDING,
     DESCENDING,
@@ -4258,6 +3126,11 @@ public object FfiConverterTypeSortOrder : FfiConverterRustBuffer<SortOrder> {
         buf.putInt(value.ordinal + 1)
     }
 }
+
+/**
+ * The user's progress status for an entry. `Planned` is the default for
+ * newly added entries.
+ */
 
 enum class Status {
     PLANNED,
@@ -4291,6 +3164,10 @@ public object FfiConverterTypeStatus : FfiConverterRustBuffer<Status> {
     }
 }
 
+/**
+ * Tag filtering: `Or` matches entries with any of the listed tags,
+ * `And` requires all of them.
+ */
 sealed class TagFilter {
     data class Or(
         val v1: List<kotlin.String>,

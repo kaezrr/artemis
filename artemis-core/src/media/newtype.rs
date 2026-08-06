@@ -10,10 +10,16 @@ use sqlx::Type;
 pub struct UtcDateTime(pub time::UtcDateTime);
 
 impl UtcDateTime {
+    #[must_use]
     pub fn now() -> Self {
         Self(time::UtcDateTime::now())
     }
 
+    /// Returns the `UtcDateTime` for the given Unix timestamp.
+    ///
+    /// # Errors
+    ///
+    /// Returns [`Error::TimeStampConversionError`](crate::Error::TimeStampConversionError) if `timestamp` is out of range.
     pub fn from_unix_timestamp(timestamp: i64) -> crate::Result<Self> {
         Ok(Self(time::UtcDateTime::from_unix_timestamp(timestamp)?))
     }

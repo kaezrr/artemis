@@ -23,7 +23,7 @@ impl TMDBMovieProvider {
     }
 }
 
-impl ApiProvider for TMDBMovieProvider {
+impl TMDBMovieProvider {
     fn name(&self) -> &'static str {
         "TMDB"
     }

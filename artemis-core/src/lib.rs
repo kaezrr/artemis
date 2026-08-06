@@ -1,6 +1,3 @@
-use crate::media::MediaKind;
-use crate::media::SearchResult;
-
 cfg_select! {
     feature = "full" => {
         mod app;
@@ -28,15 +25,6 @@ pub enum Error {
 
     #[error("Timestamp could not be converted: {0:?}")]
     TimeStampConversionError(#[from] time::error::ComponentRange),
-
-    #[error("Api provider failed: {0:?}")]
-    ProviderError(#[from] reqwest::Error),
 }
 
 pub type Result<T> = std::result::Result<T, Error>;
-
-pub trait ApiProvider: Send + Sync {
-    fn name(&self) -> &'static str;
-    fn kind(&self) -> MediaKind;
-    fn search(&self, query: &str) -> impl Future<Output = Result<Vec<SearchResult>>> + Send;
-}

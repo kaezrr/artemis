@@ -22,7 +22,7 @@ impl TMDBShowProvider {
     }
 }
 
-impl ApiProvider for TMDBShowProvider {
+impl TMDBShowProvider {
     fn name(&self) -> &'static str {
         "TMDB"
     }

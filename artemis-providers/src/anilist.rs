@@ -12,7 +12,7 @@ impl Default for AnilistProvider {
     }
 }
 
-impl ApiProvider for AnilistProvider {
+impl AnilistProvider {
     fn name(&self) -> &'static str {
         "AniList"
     }

@@ -17,18 +17,10 @@ package uniffi.artemis
 // compile the Rust component. The easiest way to ensure this is to bundle the Kotlin
 // helpers directly inline like we're doing here.
 
-import com.sun.jna.Callback
-import com.sun.jna.IntegerType
-import com.sun.jna.Library
 import com.sun.jna.Native
 import com.sun.jna.Pointer
 import com.sun.jna.Structure
-import com.sun.jna.ptr.*
 import kotlinx.coroutines.CancellableContinuation
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
@@ -2900,7 +2892,7 @@ sealed class Media {
         companion object
     }
 
-    data class TvShow(
+    data class TVShow(
         val `creator`: kotlin.String?,
         val `episodes`: kotlin.UInt?,
     ) : Media() {
@@ -2938,7 +2930,7 @@ public object FfiConverterTypeMedia : FfiConverterRustBuffer<Media> {
             }
 
             4 -> {
-                Media.TvShow(
+                Media.TVShow(
                     FfiConverterOptionalString.read(buf),
                     FfiConverterOptionalUInt.read(buf),
                 )
@@ -2978,7 +2970,7 @@ public object FfiConverterTypeMedia : FfiConverterRustBuffer<Media> {
                 )
             }
 
-            is Media.TvShow -> {
+            is Media.TVShow -> {
                 // Add the size for the Int that specifies the variant plus the size needed for all fields
                 (
                     4UL +
@@ -3014,7 +3006,7 @@ public object FfiConverterTypeMedia : FfiConverterRustBuffer<Media> {
                 Unit
             }
 
-            is Media.TvShow -> {
+            is Media.TVShow -> {
                 buf.putInt(4)
                 FfiConverterOptionalString.write(value.`creator`, buf)
                 FfiConverterOptionalUInt.write(value.`episodes`, buf)

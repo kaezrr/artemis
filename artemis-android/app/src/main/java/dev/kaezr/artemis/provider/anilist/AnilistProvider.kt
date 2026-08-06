@@ -6,16 +6,17 @@ import io.ktor.client.call.body
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
+import io.ktor.http.Url
 import io.ktor.http.contentType
 import uniffi.artemis.Media
 import uniffi.artemis.MediaKind
 import uniffi.artemis.ProviderMetadata
 import uniffi.artemis.SearchResult
 
-private const val QUERY = """
-query(${'$'}search: String!, ${'$'}perPage: Int) {
-  Page(perPage: ${'$'}perPage) {
-    media(search: ${'$'}search, type: ANIME, sort: POPULARITY_DESC) {
+private const val QUERY = $$"""
+query($search: String!, $perPage: Int) {
+  Page(perPage: $perPage) {
+    media(search: $search, type: ANIME, sort: POPULARITY_DESC) {
       id
       episodes
       genres
@@ -31,11 +32,12 @@ query(${'$'}search: String!, ${'$'}perPage: Int) {
 """
 
 class AnilistProvider(private val client: HttpClient) : ApiProvider {
+    private val baseUrl = Url("https://graphql.anilist.co")
     override val name = "AniList"
     override val kind = MediaKind.ANIME
 
     override suspend fun search(query: String): List<SearchResult> {
-        val response: Response = client.post("https://graphql.anilist.co") {
+        val response: Response = client.post(baseUrl) {
             contentType(ContentType.Application.Json)
             setBody(
                 Request(

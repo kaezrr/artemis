@@ -1355,39 +1355,7 @@ private class UniffiJnaCleanable(
     override fun clean() = cleanable.clean()
 }
 
-// We decide at uniffi binding generation time whether we were
-// using Android or not.
-// There are further runtime checks to chose the correct implementation
-// of the cleaner.
-private fun UniffiCleaner.Companion.create(): UniffiCleaner =
-    try {
-        // For safety's sake: if the library hasn't been run in android_cleaner = true
-        // mode, but is being run on Android, then we still need to think about
-        // Android API versions.
-        // So we check if java.lang.ref.Cleaner is there, and use that…
-        java.lang.Class.forName("java.lang.ref.Cleaner")
-        JavaLangRefCleaner()
-    } catch (e: ClassNotFoundException) {
-        // … otherwise, fallback to the JNA cleaner.
-        UniffiJnaCleaner()
-    }
-
-private class JavaLangRefCleaner : UniffiCleaner {
-    val cleaner =
-        java.lang.ref.Cleaner
-            .create()
-
-    override fun register(
-        value: Any,
-        cleanUpTask: Runnable,
-    ): UniffiCleaner.Cleanable = JavaLangRefCleanable(cleaner.register(value, cleanUpTask))
-}
-
-private class JavaLangRefCleanable(
-    val cleanable: java.lang.ref.Cleaner.Cleanable,
-) : UniffiCleaner.Cleanable {
-    override fun clean() = cleanable.clean()
-}
+private fun UniffiCleaner.Companion.create(): UniffiCleaner = UniffiJnaCleaner()
 
 /**
  * @suppress
@@ -1668,12 +1636,6 @@ public object FfiConverterDuration : FfiConverterRustBuffer<java.time.Duration> 
 // [1] https://stackoverflow.com/questions/24376768/can-java-finalize-an-object-when-it-is-still-in-scope/24380219
 //
 
-/**
- * An open library database.
- *
- * Created with [`Application::open`]; methods are safe to call from any
- * thread.
- */
 public interface ApplicationInterface {
     /**
      * Adds a media entry to the library and returns the stored entry.
@@ -1774,12 +1736,6 @@ public interface ApplicationInterface {
     companion object
 }
 
-/**
- * An open library database.
- *
- * Created with [`Application::open`]; methods are safe to call from any
- * thread.
- */
 open class Application :
     Disposable,
     AutoCloseable,
@@ -2892,7 +2848,7 @@ sealed class Media {
         companion object
     }
 
-    data class TVShow(
+    data class TvShow(
         val `creator`: kotlin.String?,
         val `episodes`: kotlin.UInt?,
     ) : Media() {
@@ -2930,7 +2886,7 @@ public object FfiConverterTypeMedia : FfiConverterRustBuffer<Media> {
             }
 
             4 -> {
-                Media.TVShow(
+                Media.TvShow(
                     FfiConverterOptionalString.read(buf),
                     FfiConverterOptionalUInt.read(buf),
                 )
@@ -2970,7 +2926,7 @@ public object FfiConverterTypeMedia : FfiConverterRustBuffer<Media> {
                 )
             }
 
-            is Media.TVShow -> {
+            is Media.TvShow -> {
                 // Add the size for the Int that specifies the variant plus the size needed for all fields
                 (
                     4UL +
@@ -3006,7 +2962,7 @@ public object FfiConverterTypeMedia : FfiConverterRustBuffer<Media> {
                 Unit
             }
 
-            is Media.TVShow -> {
+            is Media.TvShow -> {
                 buf.putInt(4)
                 FfiConverterOptionalString.write(value.`creator`, buf)
                 FfiConverterOptionalUInt.write(value.`episodes`, buf)

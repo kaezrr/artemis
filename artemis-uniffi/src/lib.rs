@@ -27,10 +27,6 @@ pub enum Error {
     TimeStampConversionError,
 }
 
-/// An open library database.
-///
-/// Created with [`Application::open`]; methods are safe to call from any
-/// thread.
 #[derive(uniffi::Object)]
 struct Application {
     app: artemis::Application,

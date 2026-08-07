@@ -1,3 +1,7 @@
+[bindings.kotlin]
+android = true
+disable_java_cleaner = true
+
 [bindings.kotlin.custom_types.UtcDateTime]
 type_name = "Instant"
 imports = ["java.time.Instant"]

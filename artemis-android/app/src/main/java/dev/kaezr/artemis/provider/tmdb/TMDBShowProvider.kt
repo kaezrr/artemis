@@ -67,15 +67,15 @@ class TMDBShowProvider(
         }
 
     private fun TVShow.toSearchResult(details: TVShowDetailsResponse): SearchResult {
-        val media = Media.TVShow(
+        val media = Media.TvShow(
             creator = details.createdBy.firstOrNull()?.name,
             episodes = details.numberOfEpisodes
         )
 
         val metadata = ProviderMetadata(
-            provider = name,
+            provider = this@TMDBShowProvider.name,
             providerId = id,
-            title = name,
+            title = this.name,
             coverUrl = posterPath?.let { imageUrl(it, "w500") },
             wideUrl = backdropPath?.let { imageUrl(it, "w1280") },
             description = overview,

@@ -20,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import dev.kaezr.artemis.provider.anilist.AnilistProvider
+import dev.kaezr.artemis.provider.igdb.IGDBProvider
 import dev.kaezr.artemis.ui.theme.ArtemisTheme
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp

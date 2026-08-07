@@ -14,11 +14,11 @@ internal data class Movie(
     val id: Long,
 
     @SerialName("backdrop_path")
-    val backdropPath: String?,
-    val overview: String?,
+    val backdropPath: String? = null,
+    val overview: String? = null,
 
     @SerialName("poster_path")
-    val posterPath: String?,
+    val posterPath: String? = null,
 
     @SerialName("release_date")
     val releaseDate: String,
@@ -27,7 +27,7 @@ internal data class Movie(
 
 @Serializable
 internal data class MovieDetailsResponse(
-    val runtime: Long?,
+    val runtime: Long? = null,
     val genres: List<Genre>,
     val credits: Credits,
 ) {
@@ -46,11 +46,11 @@ internal data class TVShow(
     val id: Long,
 
     @SerialName("backdrop_path")
-    val backdropPath: String?,
-    val overview: String?,
+    val backdropPath: String? = null,
+    val overview: String? = null,
 
     @SerialName("poster_path")
-    val posterPath: String?,
+    val posterPath: String? = null,
 
     @SerialName("first_air_date")
     val firstAirDate: String,
@@ -60,7 +60,7 @@ internal data class TVShow(
 @Serializable
 internal data class TVShowDetailsResponse(
     @SerialName("number_of_episodes")
-    val numberOfEpisodes: UInt?,
+    val numberOfEpisodes: UInt? = null,
 
     val genres: List<Genre>,
 

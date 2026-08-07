@@ -19,12 +19,12 @@ internal data class Response(val data: Data) {
         val coverImage: CoverImage,
         val studios: Studios,
         val title: Title,
-        val seasonYear: UInt?,
-        val description: String?,
-        val bannerImage: String?
+        val seasonYear: UInt? = null,
+        val description: String? = null,
+        val bannerImage: String? = null
     ) {
         @Serializable
-        internal data class CoverImage(val extraLarge: String?)
+        internal data class CoverImage(val extraLarge: String? = null)
 
         @Serializable
         internal data class Studios(val nodes: List<Studio>) {
@@ -34,7 +34,7 @@ internal data class Response(val data: Data) {
 
         @Serializable
         internal data class Title(
-            val english: String?,
+            val english: String? = null,
             val romaji: String,
         )
     }
